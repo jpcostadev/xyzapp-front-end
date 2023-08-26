@@ -38,7 +38,7 @@
   transition: 0.2s;
   min-width: 8rem;
   max-width: max-content;
-  box-shadow: 5px 5px 7px #d3d3d3, -5px -5px 7px #ffffff;
+  box-shadow: -5px -5px 10px #dfdfdf, 5px 5px 10px #ffffff;
 }
 
 .button:hover,
@@ -66,7 +66,7 @@
   cursor: pointer;
   transition: 0.2s;
   min-width: 8rem;
-  box-shadow: 5px 5px 7px #d3d3d3, -5px -5px 7px #ffffff;
+  box-shadow: -5px 5px 10px #dfdfdf, 5px 5px 10px #ffffff;
 }
 
 .buttonEntrar:hover,

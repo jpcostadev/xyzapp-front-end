@@ -43,6 +43,7 @@ const LoginForm = () => {
 
         {/* Componente Input para o campo de senha */}
         <Input label="Senha" type="password" name="password" {...password} />
+        {error && <Error error={error} />}
 
         {/* Botão para enviar o formulário */}
 
@@ -53,7 +54,6 @@ const LoginForm = () => {
         ) : (
           <button className={styles.buttonEntrar}>Entrar</button>
         )}
-        {error && <Error>{error}</Error>}
       </form>
 
       <Link className={styles.perdeu} to={"/login/perdeu"}>

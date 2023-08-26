@@ -23,10 +23,10 @@ const Header = () => {
             LOGO
           </Link>
           {data ? (
-            <div className={styles.login}>
+            <Link to="/conta" className={styles.login}>
               {data && data.username + " " + data.sobrenome}
-              <button onClick={handleLogout}>sair</button>
-            </div>
+              {/* <button onClick={handleLogout}>sair</button> */}
+            </Link>
           ) : (
             <Link to={"/login"} aria-label="xyz login" className={styles.login}>
               Entrar / Anunciar

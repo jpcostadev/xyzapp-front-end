@@ -17,10 +17,11 @@ const LoginCreate = () => {
   const nome = useForm();
   const sobrenome = useForm();
   const password = useForm("password");
-  const termos = useForm("termos");
 
   const { userLogin } = React.useContext(UserContext);
   const { loading, error, request } = useFetch();
+
+  const [termos, setTermos] = React.useState("Aceito Termos");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -31,12 +32,11 @@ const LoginCreate = () => {
       nome: nome.value,
       sobrenome: sobrenome.value,
       password: password.value,
+      termos: termos === "Aceito Termos" ? termos : false,
     });
-    const response = await fetch(url, options);
-    console.log(response);
-    if (response.ok) {
-      userLogin(username.value, password.value);
-    }
+
+    const { response } = await request(url, options);
+    if (response.ok) userLogin(username.value, password.value);
   }
 
   return (
@@ -72,10 +72,13 @@ const LoginCreate = () => {
             type="checkbox"
             name="termos"
             id="termos"
-            value="true"
+            checked={termos === "Aceito Termos"} // Verifique se o estado termos é igual a "Aceito Termos"
+            onChange={() =>
+              setTermos(termos === "Aceito Termos" ? "" : "Aceito Termos")
+            } // Inverta o estado quando o checkbox for alterado
             required
-            // {...termos}
           />
+
           <Link to={"termos"} htmlFor="termos">
             Termos de Condição
           </Link>
@@ -86,7 +89,7 @@ const LoginCreate = () => {
         ) : (
           <Button>Cadastrar</Button>
         )}
-        <Error error={error} />
+        {error && <Error error={error} />}
       </form>
     </section>
   );
