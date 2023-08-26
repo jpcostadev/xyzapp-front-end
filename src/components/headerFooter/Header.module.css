@@ -1,0 +1,53 @@
+.header {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  background-color: var(--branco);
+  top: 0px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6rem;
+}
+
+.logo {
+  padding: 1rem 0;
+  color: var(--cor-a11);
+}
+
+.login {
+  color: #333333;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+.login::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 17px;
+  background-image: url(../../assets/Icones/usuario.svg);
+  margin-right: 1rem;
+}
+.sair {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 17px;
+  background-image: url(../../assets/Icones/sair.svg);
+  margin-left: 1rem;
+}
+
+@media (max-width: 600px) {
+  .login {
+    color: #333333;
+    font-weight: 500;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}

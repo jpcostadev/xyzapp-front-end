@@ -1,0 +1,25 @@
+.button {
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--amarelo);
+  color: var(--amarelo2);
+  font-weight: 500;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  transition: 0.2s;
+  min-width: 8rem;
+  box-shadow: 6px 6px 12px #d3d3d3, -6px -6px 12px #ffffff;
+}
+
+.button:hover,
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--amarelo3), 0 0 0 4px var(--amarelo);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}

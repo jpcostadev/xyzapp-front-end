@@ -1,0 +1,73 @@
+.acessarConta {
+  padding: 1rem;
+  color: var(--cor-a6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  border: 2px solid var(--amarelo);
+  border-radius: 50px;
+  transition: 0.2s;
+  box-shadow: 6px 6px 12px #d8d8d8, -6px -6px 12px #ffffff;
+  font-weight: 500;
+}
+.acessarConta:hover {
+  color: var(--amarelo2);
+  transform: translate(0, 2px);
+  background-color: rgba(255, 188, 17, 0.1);
+}
+
+.acessarConta::after {
+  content: "";
+  display: block;
+  max-height: 3px;
+  height: 2px;
+  background-color: var(--cor-a6);
+}
+
+.acessarConta:hover:after {
+  background-color: var(--amarelo);
+}
+
+.acessarConta img {
+  max-width: 24px;
+}
+.acessarConta img:hover {
+  color: var(--amarelo3);
+}
+
+.termosContainer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.termosContainer a {
+  color: var(--cor-a6);
+}
+
+.termosContainer a::after {
+  content: "";
+  display: block;
+  max-height: 3px;
+  height: 2px;
+  background-color: var(--cor-a6);
+}
+
+.customCheckbox {
+  width: 20px;
+  height: 20px;
+  background-color: #007bff; /* Cor de fundo do checkbox quando selecionado */
+  border: 1px solid #007bff; /* Borda do checkbox */
+  border-radius: 4px; /* Cantos arredondados */
+  cursor: pointer; /* Mude o cursor para indicar que é clicável */
+}
+
+/* Estilize o checkbox quando estiver marcado */
+.customCheckbox:checked {
+  background-color: #007bff; /* Cor de fundo quando selecionado */
+  border: 1px solid #007bff; /* Borda quando selecionado */
+  color: white; /* Cor do ícone de marca de seleção (se aplicável) */
+}

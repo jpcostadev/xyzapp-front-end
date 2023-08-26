@@ -1,0 +1,38 @@
+.wrapper {
+  margin-bottom: 1rem;
+}
+
+.input {
+  border: 1px solid #eee;
+  display: block;
+  font-size: 1.6rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: #333;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 5px;
+  background-color: #e2e2e2;
+  transition: 0.2s;
+}
+
+.input:focus,
+.input:hover {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--amarelo3), 0 0 0 4px var(--amarelo);
+}
+
+.label {
+  display: block;
+  font-size: 1.6rem;
+  line-height: 1;
+  padding-bottom: 0.5rem;
+  font-weight: 500;
+}
+.error {
+  color: red;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-top: 0.8rem;
+  max-width: 50ch;
+}
