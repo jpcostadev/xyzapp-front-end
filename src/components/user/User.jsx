@@ -3,8 +3,9 @@ import styles from "./User.module.css";
 import UserHeader from "./UserHeader";
 import { Route, Routes } from "react-router-dom";
 import Feed from "../feed/Feed";
-import UserServicePost from "./UserServicePost";
+import UserAnuncioPost from "./UserAnuncioPost";
 import ContainerMid from "../global/ContainerMid";
+import UserStats from "./UserStats";
 const User = () => {
   return (
     <section>
@@ -12,8 +13,8 @@ const User = () => {
         <UserHeader />
         <Routes>
           <Route path="/" element={<Feed />} />
-          <Route path="postar" element={<UserServicePost />} />
-          <Route path="estatisticas" element={<UserServicePost />} />
+          <Route path="anunciar" element={<UserAnuncioPost />} />
+          <Route path="estatisticas" element={<UserStats />} />
         </Routes>
       </ContainerMid>
     </section>
