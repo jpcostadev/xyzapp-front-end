@@ -54,8 +54,19 @@ export function USER_GET(token) {
   };
 }
 
-// Função que gera uma requisição POST para criar um novo serviço
-export function SERVICO_POST(body) {
+export function LIMIT_GET(token) {
+  return {
+    url: API_URL + "/api/servico",
+    options: {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+}
+
+export function LIMIT_POST(body) {
   return {
     url: API_URL + "/api/servico",
     options: {
@@ -64,6 +75,20 @@ export function SERVICO_POST(body) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
+    },
+  };
+}
+
+// Função que gera uma requisição POST para criar um novo serviço
+export function SERVICO_POST(formData, token) {
+  return {
+    url: API_URL + "/api/servico",
+    options: {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
     },
   };
 }

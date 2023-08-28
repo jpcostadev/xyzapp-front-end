@@ -27,9 +27,11 @@ const useFetch = () => {
   return {
     data,
     loading,
+    setLoading,
     error,
     request,
     setError,
+    setData,
   };
 };
 

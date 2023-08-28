@@ -8,7 +8,9 @@ const UserHeader = () => {
   const [title, setTitle] = React.useState("");
   const location = useLocation();
   const { data, setData } = React.useContext(UserContext);
+
   console.log(data);
+
   React.useEffect(() => {
     const { pathname } = location;
     switch (pathname) {
@@ -23,6 +25,7 @@ const UserHeader = () => {
     }
     if ("/conta/estatisticas" === location.pathname) setTitle("Estatísticas");
   }, [location]);
+
   return (
     <header className={styles.header}>
       <h1 className="titulo">{title}</h1>

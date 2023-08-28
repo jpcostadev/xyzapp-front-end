@@ -87,7 +87,7 @@ const ServicoPost = () => {
         type="file"
         multiple
         onChange={({ target }) => {
-          console.log(target.files); // Verifique os arquivos selecionados no console
+          console.log(target.files);
           setFiles(target.files);
         }}
       />
