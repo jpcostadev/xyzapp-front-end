@@ -9,10 +9,17 @@ import { UserContext } from "../../userContext";
 import styles from "./Login.module.css";
 import Termos from "./Termos";
 
-// Componente Login que define as rotas para as páginas relacionadas ao login
+/**
+ * O componente Login gerencia as rotas relacionadas ao login e exibe o formulário de login.
+ * Redireciona automaticamente para a página de conta se o usuário já estiver logado.
+ *
+ * @component
+ * @returns {JSX.Element} - Retorna um elemento JSX que representa a página de login.
+ */
 const Login = () => {
   const { login } = React.useContext(UserContext);
 
+  // Se o usuário já estiver logado, redireciona para a página de conta
   if (login === true) return <Navigate to={"/conta"} />;
 
   return (
@@ -32,7 +39,7 @@ const Login = () => {
             {/* Rota para a página de criação de conta */}
             <Route path="criar" element={<LoginCreate />} />
 
-            {/* Rota para a página de criação de conta */}
+            {/* Rota para a página de termos de uso */}
             <Route path="termos" element={<Termos />} />
 
             {/* Rota para a página de recuperação de senha */}
@@ -48,3 +55,4 @@ const Login = () => {
 };
 
 export default Login;
+/**Neste comentário, explicamos que o componente Login é responsável por gerenciar as rotas relacionadas ao login e que ele redireciona automaticamente para a página de conta se o usuário já estiver logado. Também detalhamos as diferentes rotas e componentes que são usados para construir a página de login. Isso fornece uma visão geral clara do comportamento deste componente. */

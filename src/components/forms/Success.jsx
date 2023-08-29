@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./Error.module.css";
+import style from "./Success.module.css";
 
 /**
  * O componente Error é usado para exibir mensagens de erro formatadas.
@@ -9,9 +9,9 @@ import style from "./Error.module.css";
  * @param {string} props.error - A mensagem de erro a ser exibida.
  * @returns {JSX.Element} - Retorna um elemento JSX que exibe a mensagem de erro formatada.
  */
-const Error = ({ error }) => {
-  return <p className={style.erro}>{error}</p>;
+const Success = ({ success }) => {
+  return <p className={style.success}>{success}</p>;
 };
 
-export default Error;
+export default Success;
 /*Nesses comentários, explicamos que o componente Error é usado para exibir mensagens de erro formatadas. Detalhamos as propriedades que ele aceita e o que retorna, tornando mais fácil entender como usar esse componente em outros lugares do código.*/

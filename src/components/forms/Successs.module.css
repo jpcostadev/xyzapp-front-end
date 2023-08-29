@@ -1,0 +1,8 @@
+.success {
+  display: block;
+  font-weight: 500;
+  color: rgb(0, 167, 14);
+  font-size: 1.3rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}

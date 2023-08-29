@@ -10,6 +10,13 @@ import { UserContext } from "../../userContext";
 import useFetch from "../../Hooks/useFetch";
 import Error from "../forms/Error";
 
+/**
+ * O componente LoginCreate exibe o formulário de criação de conta.
+ * Permite que o usuário insira informações como CEP, nome de usuário, email, nome, sobrenome e senha.
+ *
+ * @component
+ * @returns {JSX.Element} - Retorna um elemento JSX que representa a página de criação de conta.
+ */
 const LoginCreate = () => {
   const cep = useForm("number");
   const username = useForm();
@@ -23,6 +30,12 @@ const LoginCreate = () => {
 
   const [termos, setTermos] = React.useState("Aceito Termos");
 
+  /**
+   * Função para lidar com o envio do formulário de criação de conta.
+   * Envia os dados para a API e, se for bem-sucedido, realiza o login do usuário.
+   *
+   * @param {Event} event - O evento de envio do formulário.
+   */
   async function handleSubmit(event) {
     event.preventDefault();
     const { url, options } = USER_POST({
@@ -96,3 +109,6 @@ const LoginCreate = () => {
 };
 
 export default LoginCreate;
+/*
+Os comentários explicam o comportamento de diferentes partes do componente, incluindo o processamento do formulário, o uso de estados para checkbox de termos, etc. Espero que isso ajude a entender o componente LoginCreate.
+*/

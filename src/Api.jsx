@@ -15,6 +15,7 @@ export function TOKEN_POST(body) {
   };
 }
 
+// Função que gera uma requisição POST para validar um token de autenticação
 export function TOKEN_VALIDATE_POST(token) {
   return {
     url: API_URL + "/jwt-auth/v1/token/validate",
@@ -54,6 +55,7 @@ export function USER_GET(token) {
   };
 }
 
+// Função que gera uma requisição GET para buscar informações de limites de serviço
 export function LIMIT_GET(token) {
   return {
     url: API_URL + "/api/servico",
@@ -66,6 +68,7 @@ export function LIMIT_GET(token) {
   };
 }
 
+// Função que gera uma requisição POST para criar um novo limite de serviço
 export function LIMIT_POST(body) {
   return {
     url: API_URL + "/api/servico",
@@ -105,3 +108,30 @@ export function SERVICO_GET(token) {
     },
   };
 }
+
+// Função que gera uma requisição GET para buscar informações de todos os serviços
+export function SERVICO_GET_ALL(token) {
+  return {
+    url: API_URL + "/api/servico",
+    options: {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+}
+
+/*
+Neste código:
+
+É definida a URL base da API como API_URL.
+
+As funções de requisição HTTP são exportadas como módulos. Essas funções retornam objetos contendo a URL da API, opções de solicitação e outras informações necessárias para realizar as solicitações.
+
+TOKEN_POST gera uma solicitação POST para obter um token de autenticação, TOKEN_VALIDATE_POST gera uma solicitação POST para validar um token, USER_POST cria um novo usuário, USER_GET busca informações de um usuário, LIMIT_GET busca informações de limites de serviço, LIMIT_POST cria um novo limite de serviço, SERVICO_POST cria um novo serviço, SERVICO_GET busca informações de serviços e SERVICO_GET_ALL busca informações de todos os serviços.
+
+Cada função define a URL da API correspondente e as opções de solicitação necessárias, como método HTTP, cabeçalhos e corpo (quando aplicável).
+
+Estas funções são úteis para realizar solicitações HTTP na API a partir de vários componentes da sua aplicação, mantendo o código organizado e reutilizável. Elas são utilizadas em diferentes partes do código para realizar diferentes tipos de solicitações.
+*/

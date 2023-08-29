@@ -48,11 +48,11 @@ const LoginForm = () => {
         {/* Botão para enviar o formulário */}
 
         {loading ? (
-          <button className={styles.buttonEntrar} disabled>
+          <Button className={styles.buttonEntrar} disabled>
             Carregando...
-          </button>
+          </Button>
         ) : (
-          <button className={styles.buttonEntrar}>Entrar</button>
+          <Button className={styles.buttonEntrar}>Entrar</Button>
         )}
       </form>
 
@@ -73,3 +73,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+// Os comentários explicam o propósito de cada parte do código. Se você tiver alguma pergunta específica ou precisar de mais informações sobre alguma parte do código, por favor, me informe.

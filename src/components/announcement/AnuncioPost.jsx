@@ -6,31 +6,49 @@ import TextArea from "../forms/TextArea";
 import Button from "../forms/Button";
 import useForm from "../../Hooks/useForm";
 import useFetch from "../../Hooks/useFetch";
-import { SERVICO_POST } from "../../Api";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Error from "../forms/Error";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../userContext";
+import { useContext } from "react";
+import { useState, useEffect } from "react";
+import { fetchUserData } from "./functions/fetchUserData";
+import { fazerPostagemAnuncio } from "./functions/FazerPostagem";
 
 const AnuncioPost = () => {
+  // Estado para armazenar os arquivos de fotos selecionados
+  const [files, setFiles] = React.useState([]);
+
+  // Estado para armazenar a opção selecionada no formulário
   const [selectedOption, setSelectedOption] = React.useState("");
+
+  // Estado para armazenar o valor inserido na categoria "outros"
   const [outrosValue, setOutrosValue] = React.useState("");
+
+  // Estado para armazenar a categoria selecionada
   const [categoriaSelecionada, setCategoriaSelecionada] = React.useState("");
-  const MAX_PHOTOS = 6; // Defina o número máximo de fotos
+
+  // Estado para controlar o limite máximo de postagens
+  // const [postLimitExceeded, setPostLimitExceeded] = useState(false);
+
+  // Define o número máximo de fotos
+  const MAX_PHOTOS = 3;
+
+  // Hooks personalizados para o gerenciamento de campos de formulário
   const titulo = useForm();
   const descricao = useForm();
   const categoria = useForm();
-  const [files, setFiles] = React.useState([]);
-  const { data, error, loading, request } = useFetch();
-  console.log(data);
+
+  // Obtém o contexto de usuário
+  const { getUser } = useContext(UserContext);
+
+  // Hook de requisição HTTP personalizado
+  const { data, error, setError, loading, request } = useFetch();
+  // Hook para navegação em rotas
   const navigate = useNavigate();
-
-  React.useEffect(() => {
-    if (data) {
-      navigate("/conta");
-    }
-  }, [data, navigate]);
-
+  console.log(error);
+  // Opções de categorias para o select
   const options = [
     { value: "", label: "Selecione a categoria" },
     { value: "advogado", label: "Advogado" },
@@ -66,33 +84,39 @@ const AnuncioPost = () => {
     { value: "outros", label: "outros" },
   ];
 
-  function handleSubmit(event) {
+  // Função para lidar com o envio do formulário
+  async function handleSubmit(event) {
+    event.preventDefault();
     if (files.length === 0) {
-      // Nenhuma foto foi enviada, exiba uma mensagem de erro para o usuário.
-      alert("Pelo menos uma foto é necessária para enviar o anúncio.");
+      setError("Pelo menos uma foto é necessária para enviar o anúncio.");
     } else {
-      // Pelo menos uma foto foi enviada, continue com o envio dos dados do anúncio.
-      // Aqui você pode chamar a função que envia os dados para o servidor.
-      event.preventDefault();
+      // Realiza a verificação do usuário antes de fazer a postagem
+      fetchUserData(request, navigate, setError, error, getUser, useFetch);
+
+      // Cria um objeto FormData para enviar os dados do formulário
       const formData = new FormData();
       formData.append("titulo", titulo.value);
       formData.append("descricao", descricao.value);
       formData.append("categoria", categoria.value);
       formData.append("outros", outrosValue);
+
+      // Adiciona as fotos selecionadas ao FormData
       for (let i = 0; i < files.raw.length; i++) {
         formData.append(`foto${i}`, files.raw[i]);
       }
 
+      // Define a categoria com base na seleção ou no valor inserido em "outros"
       formData.append(
         "categoria",
         categoriaSelecionada !== "outros" ? categoriaSelecionada : outrosValue,
       );
-      const token = window.localStorage.getItem("token");
-      const { url, options } = SERVICO_POST(formData, token);
-      request(url, options);
+
+      // Chama a função para fazer a postagem do anúncio
+      fazerPostagemAnuncio(formData, request, navigate, error, setError);
     }
   }
 
+  // Função para lidar com a mudança da opção no select de categoria
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(event.target.value);
@@ -102,8 +126,10 @@ const AnuncioPost = () => {
   return (
     <section className={`${styles.anuncioPost} animeLeft`}>
       <form onSubmit={handleSubmit}>
+        {/* Componente de input para o título */}
         <Input label="Titulo" type="text" name="titulo" required {...titulo} />
 
+        {/* Componente de input para a descrição */}
         <TextArea
           label="Descrição"
           name="descricao"
@@ -115,6 +141,7 @@ const AnuncioPost = () => {
 
         <div>
           <p className={styles.label}>Categoria</p>
+          {/* Componente de select para a categoria */}
           <Select
             name="categoria"
             required
@@ -129,6 +156,7 @@ const AnuncioPost = () => {
 
           {selectedOption.toLowerCase() === "outros" ? (
             <div>
+              {/* Componente de input para inserir categoria personalizada */}
               <Input
                 className={styles.outros}
                 type="text"
@@ -148,12 +176,12 @@ const AnuncioPost = () => {
             type="file"
             style={{ display: "none" }}
             onChange={(e) => {
-              // Verificar se algum arquivo foi selecionado
+              // Verifica se algum arquivo foi selecionado
               if (!e.target.files.length) {
                 return;
               }
 
-              // Verificar o número de fotos selecionadas ao adicionar fotos
+              // Verifica o número de fotos selecionadas ao adicionar fotos
               if (
                 e.target.files.length + (files.raw ? files.raw.length : 0) >
                 MAX_PHOTOS
@@ -162,7 +190,7 @@ const AnuncioPost = () => {
                 return;
               }
 
-              // Adicionar as fotos selecionadas
+              // Adiciona as fotos selecionadas ao estado
               setFiles((prevFiles) => ({
                 preview: URL.createObjectURL(e.target.files[0]),
                 raw: [
@@ -178,18 +206,22 @@ const AnuncioPost = () => {
           Máximo 6 fotos, Dimensão (Recomendado 1080 x 1080)
         </p>
 
+        {/* Botão de envio do formulário */}
         {loading ? (
           <Button disabled>Enviando...</Button>
         ) : (
           <Button>Anunciar</Button>
         )}
-        <Error>{error}</Error>
+
+        {/* Exibe mensagem de erro, se houver */}
+        <Error error={error} />
       </form>
       <div>
+        {/* Exibe as fotos selecionadas em um carousel */}
         {files.raw && files.raw.length > 0 && (
           <Carousel className={styles.containerPreview}>
             {Array.from(files.raw)
-              .slice(0, MAX_PHOTOS) // Use slice para limitar a quantidade de fotos
+              .slice(0, MAX_PHOTOS) // Usa slice para limitar a quantidade de fotos
               .map((file, index) => (
                 <div key={index}>
                   <img
@@ -207,3 +239,37 @@ const AnuncioPost = () => {
 };
 
 export default AnuncioPost;
+
+/*
+Neste código:
+
+Importam-se os componentes e hooks necessários, bem como estilos e outras dependências.
+
+Define-se o componente AnuncioPost, que é uma parte do formulário de criação de anúncios.
+
+Usam-se estados para controlar as opções selecionadas e os valores inseridos no formulário.
+
+São criados objetos de hook para os campos de título, descrição e categoria.
+
+O estado files é usado para armazenar as fotos selecionadas para o anúncio.
+
+O hook useFetch é usado para fazer solicitações HTTP.
+
+Usa-se o hook useNavigate para navegar para outras rotas.
+
+Define-se o estado postLimitExceeded para controlar se o limite máximo de postagens foi excedido.
+
+As opções de categoria são definidas em um array.
+
+handleSubmit é uma função para lidar com o envio do formulário. Ela valida a entrada do usuário, faz uma verificação de limite de postagens e, em seguida, envia os dados do formulário.
+
+handleSelectChange é uma função para lidar com a mudança na seleção de categoria.
+
+O formulário é renderizado com campos de entrada, seleção de categoria e upload de fotos.
+
+Um carousel é exibido para mostrar as fotos selecionadas.
+
+Os componentes Input, TextArea, Select, Button, e Error são componentes personalizados usados para criar os elementos do formulário.
+
+Este comentário deve ajudar a entender o que cada parte do código faz no componente AnuncioPost.
+*/
