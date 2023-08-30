@@ -36,7 +36,7 @@ export async function fazerPostagemAnuncio(
       navigate("/conta");
     } else {
       // Se houver um erro na requisição, define uma mensagem de erro
-      setError("Erro ao postar o anúncio.");
+      return null;
     }
   } catch (error) {
     // Em caso de erro durante o processo, registra o erro no console

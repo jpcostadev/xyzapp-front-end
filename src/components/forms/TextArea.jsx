@@ -25,6 +25,7 @@ const TextArea = ({
   placeholder,
   value,
   onChange,
+  required,
 }) => {
   return (
     <div className={styles.textAreaContainer}>
@@ -34,6 +35,7 @@ const TextArea = ({
         </label>
       )}
       <textarea
+        required={required ? true : undefined}
         id={name}
         name={name}
         rows={rows || 4}

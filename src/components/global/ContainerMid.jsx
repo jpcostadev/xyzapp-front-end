@@ -14,4 +14,5 @@ const ContainerMid = ({ children }) => {
 };
 
 export default ContainerMid;
+
 /**Neste comentário, explicamos que o componente ContainerMid é usado para envolver elementos e aplicar estilos de um contêiner centralizado verticalmente. Ele aceita um único prop, children, que deve conter os elementos que serão renderizados dentro do contêiner centralizado. Isso fornece clareza sobre a finalidade do componente e como usá-lo. */

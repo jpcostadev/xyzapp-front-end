@@ -1,10 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import UserHeaderNav from "./UserHeaderNav";
 import styles from "../user/UserHeader.module.css";
 import { useLocation } from "react-router-dom";
 import { UserContext } from "../../userContext";
 import useFetch from "../../Hooks/useFetch";
 import { LIMIT_GET, USER_GET } from "../../Api";
+import useMedia from "../../Hooks/useMedia";
 
 /**
  * Componente de cabeçalho do usuário.
@@ -23,6 +24,9 @@ const UserHeader = () => {
   const { data, error, loading, request } = useFetch();
 
   // Define o título da página com base na localização atual
+
+  const mobile = useMedia("(max-width: 800px");
+
   React.useEffect(() => {
     const { pathname } = location;
 
@@ -58,29 +62,35 @@ const UserHeader = () => {
   return (
     <header className={styles.header}>
       <h1 className="titulo">{title}</h1>
-      <span className={styles.containerPlanoAtivo}>
-        <p className={styles.plano}>
-          Plano Ativo: <span>{data ? data.plano_ativo : "Carregando..."}</span>
-        </p>
-        <p className={styles.plano}>
-          Postagens:{" "}
-          <span>
-            {data
-              ? data.contador_postagens + "/" + data.limite_postagens
-              : "Carregando..."}
-          </span>
-        </p>
-        <p className={styles.plano}>
-          Tempo Restante:{" "}
-          <span>
-            {data
-              ? `${data.tempo_restante} ${
-                  data.tempo_restante === 1 ? "Dia" : "Dias"
-                }`
-              : "Carregando..."}
-          </span>
-        </p>
-      </span>
+      {!mobile ? (
+        <span className={styles.containerPlanoAtivo}>
+          <p className={styles.plano}>
+            Plano Ativo:{" "}
+            <span>{data ? data.plano_ativo : "Carregando..."}</span>
+          </p>
+          <p className={styles.plano}>
+            Postagens:{" "}
+            <span>
+              {data
+                ? data.contador_postagens + "/" + data.limite_postagens
+                : "Carregando..."}
+            </span>
+          </p>
+          <p className={styles.plano}>
+            Tempo Restante:{" "}
+            <span>
+              {data
+                ? `${data.tempo_restante} ${
+                    data.tempo_restante === 1 ? "Dia" : "Dias"
+                  }`
+                : "Carregando..."}
+            </span>
+          </p>
+        </span>
+      ) : (
+        ""
+      )}
+
       <UserHeaderNav />
     </header>
   );

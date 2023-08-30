@@ -36,8 +36,7 @@ export async function fetchUserData(
       const MAX_POSTS = limitJson.limite_postagens;
 
       if (limitJson && limitJson.limite_postagens >= MAX_POSTS) {
-        setError("Limite máximo de postagens excedido.");
-        console.log(limitJson);
+        setError(error);
 
         return;
       }

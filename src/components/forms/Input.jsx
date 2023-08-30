@@ -25,6 +25,7 @@ const Input = ({
   onChange,
   onBlur,
   placeholder,
+  required,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -32,6 +33,7 @@ const Input = ({
         {label}
       </label>
       <input
+        required={required ? true : undefined}
         className={styles.input}
         type={type}
         id={name}

@@ -47,7 +47,6 @@ const AnuncioPost = () => {
   const { data, error, setError, loading, request } = useFetch();
   // Hook para navegação em rotas
   const navigate = useNavigate();
-  console.log(error);
   // Opções de categorias para o select
   const options = [
     { value: "", label: "Selecione a categoria" },
@@ -186,18 +185,20 @@ const AnuncioPost = () => {
                 e.target.files.length + (files.raw ? files.raw.length : 0) >
                 MAX_PHOTOS
               ) {
-                alert("Você só pode selecionar até 6 fotos.");
-                return;
-              }
+                setError("Cada anúncio pode ter no máximo 3 fotos.");
 
-              // Adiciona as fotos selecionadas ao estado
-              setFiles((prevFiles) => ({
-                preview: URL.createObjectURL(e.target.files[0]),
-                raw: [
-                  ...(prevFiles.raw ? prevFiles.raw : []),
-                  ...e.target.files,
-                ],
-              }));
+                return;
+              } else {
+                // Adiciona as fotos selecionadas ao estado
+                setError(null);
+                setFiles((prevFiles) => ({
+                  preview: URL.createObjectURL(e.target.files[0]),
+                  raw: [
+                    ...(prevFiles.raw ? prevFiles.raw : []),
+                    ...e.target.files,
+                  ],
+                }));
+              }
             }}
             multiple
           />

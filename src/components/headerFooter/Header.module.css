@@ -33,13 +33,17 @@
   background-image: url(../../assets/Icones/usuario.svg);
   margin-right: 1rem;
 }
-.sair {
-  content: "";
-  display: inline-block;
-  width: 14px;
-  height: 17px;
-  background-image: url(../../assets/Icones/sair.svg);
-  margin-left: 1rem;
+
+/* ----------------------------------------- */
+
+@media (max-width: 800px) {
+  .nav {
+    display: flex;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
+    height: 6rem;
+  }
 }
 
 @media (max-width: 600px) {

@@ -40,40 +40,29 @@ const UserHeaderNav = () => {
   // Renderiza o componente UserHeaderNav
   return (
     <>
-      {mobile && (
-        // Botão para abrir/fechar o menu móvel
-        <button
-          className={`${styles.mobileButton} ${
-            mobileMenu ? styles.mobileButtonActive : ""
-          }`}
-          aria-label="Menu"
-          onClick={() => setMobileMenu(!mobileMenu)}
-        ></button>
+      {!mobile ? (
+        <section className={styles.navContainer}>
+          {/* Navegação do usuário */}
+          <nav className={`${styles.nav} `}>
+            <NavLink to="/conta" end>
+              <MeusAnuncios />
+              {mobile && "Meus Anúncios"}
+            </NavLink>
+            <NavLink to="/conta/estatisticas">
+              <Estatisticas /> {mobile && "Estatísticas"}
+            </NavLink>
+            <NavLink to="/conta/anunciar">
+              <Anunciar />
+              {mobile && "Anunciar"}
+            </NavLink>
+            <button className={styles.sairBtn} onClick={handleLogout}>
+              <Sair /> {mobile && "Sair"}
+            </button>
+          </nav>
+        </section>
+      ) : (
+        ""
       )}
-
-      <section className={styles.navContainer}>
-        {/* Navegação do usuário */}
-        <nav
-          className={`${mobile ? styles.navMobile : styles.nav} ${
-            mobileMenu && styles.navMobileActive
-          }`}
-        >
-          <NavLink to="/conta" end>
-            <MeusAnuncios />
-            {mobile && "Meus Anúncios"}
-          </NavLink>
-          <NavLink to="/conta/estatisticas">
-            <Estatisticas /> {mobile && "Estatísticas"}
-          </NavLink>
-          <NavLink to="/conta/anunciar">
-            <Anunciar />
-            {mobile && "Anunciar"}
-          </NavLink>
-          <button className={styles.sairBtn} onClick={handleLogout}>
-            <Sair /> {mobile && "Sair"}
-          </button>
-        </nav>
-      </section>
     </>
   );
 };
