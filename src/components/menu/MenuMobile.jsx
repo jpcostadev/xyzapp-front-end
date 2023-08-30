@@ -79,8 +79,7 @@ const MenuMobile = () => {
               <div className={styles.infoPlans}>
                 {/* Exibe informações sobre o plano ativo e limite de postagens */}
                 <p>
-                  Plano ativo:
-                  <span>{data.plano_ativo}</span>
+                  Plano ativo: <span>{data.plano_ativo}</span>
                 </p>
 
                 <p>
