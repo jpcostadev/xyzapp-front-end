@@ -15,7 +15,7 @@ import MenuMobile from "../menu/MenuMobile";
 const Header = () => {
   const navigate = useNavigate(); // Obtém a função navigate do React Router
 
-  const { data, userLogout } = React.useContext(UserContext);
+  const { data, userLogout, login } = React.useContext(UserContext);
 
   const mobile = useMedia("(max-width: 800px");
 

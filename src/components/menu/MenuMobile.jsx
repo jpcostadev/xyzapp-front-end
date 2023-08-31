@@ -1,38 +1,79 @@
 import React from "react";
 import styles from "./MenuMobile.module.css";
 import useMedia from "../../Hooks/useMedia";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "../global/Container";
 import { UserContext } from "../../userContext";
+import { useNavigate } from "react-router-dom";
+import UserInfo from "./renders/userInfo";
+import InfoPlans from "./renders/InfoPlans";
+import LinksMenu from "./renders/LinksMenu";
 
 const MenuMobile = () => {
   // Verifica se a tela é móvel com base na largura
 
   const mobile = useMedia("(max-width: 800px)");
+  const navigate = useNavigate();
 
   // Obtém os dados do usuário e função para fazer logout do contexto
-  const { data, userLogout } = React.useContext(UserContext);
+  const { data, setData, error, userLogout, updateUserData } =
+    React.useContext(UserContext);
 
   // Estado para controlar a exibição do menu móvel
   const [mobileMenu, setMobileMenu] = React.useState(false);
 
+  const [ativo, setAtivo] = React.useState(false);
+  const token = window.localStorage.getItem("token");
+
   // Obtém o pathname da localização atual
   const { pathname } = useLocation();
+
+  const menuRef = React.useRef(null);
 
   // Fecha o menu móvel quando a rota muda
   React.useEffect(() => {
     setMobileMenu(false);
+    setAtivo(false);
   }, [pathname]);
 
   // Função para alternar a visibilidade do menu móvel
   const handleMobileMenuClick = () => {
     setMobileMenu(!mobileMenu);
+    setAtivo(!ativo);
+
+    if (data && !error) {
+      setData(updateUserData(token));
+    } else {
+      userLogout();
+    }
   };
+
+  // Função para fechar o menu quando clicar fora dele
+  const handleDocumentClick = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setMobileMenu(false);
+      setAtivo(false);
+    }
+  };
+
+  React.useEffect(() => {
+    // Adicionar event listener ao documento para detectar cliques fora do menu
+    document.addEventListener("click", handleDocumentClick);
+
+    // Remover o event listener quando o componente for desmontado
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
 
   return (
     <Container>
       <header className={styles.header}>
-        <nav className={`${styles.nav} ${mobileMenu && styles.navActive}`}>
+        <nav
+          className={`${styles.nav} ${mobileMenu && styles.navActive} `}
+          ref={menuRef}
+        >
+          {/* Botão e nav do menu Mobile */}
           <div className={styles.btnContainer}>
             {/* Botão para abrir/fechar o menu móvel */}
             {mobile && (
@@ -56,64 +97,13 @@ const MenuMobile = () => {
             )}
           </div>
 
-          <div className={styles.infoContent}>
-            <img src="" alt="" />
-
-            <div className={styles.userProfile}>
-              {/* Links para perfil ou login/registro, dependendo do estado do usuário */}
-              {data ? (
-                <Link to="/conta" className={styles.login}>
-                  {data && "Olá" + " " + data.username}
-                </Link>
-              ) : (
-                <Link
-                  to={"/login"}
-                  aria-label="xyz login"
-                  className={styles.login}
-                >
-                  Entrar / Registrar
-                </Link>
-              )}
-            </div>
-            {data ? (
-              <div className={styles.infoPlans}>
-                {/* Exibe informações sobre o plano ativo e limite de postagens */}
-                <p>
-                  Plano ativo: <span>{data.plano_ativo}</span>
-                </p>
-
-                <p>
-                  Limite:{" "}
-                  <span>
-                    {data.contador_postagens}/{data.limite_postagens}
-                  </span>{" "}
-                  Postagens
-                </p>
-              </div>
-            ) : (
-              <Link to={"/login"} />
-            )}
+          {/*  A partir daqui só renderiza se estiver logado. */}
+          <div className={styles.infoUser}>
+            {mobile && <UserInfo user={data} ativo={ativo} />}
+            {mobile && <InfoPlans user={data} ativo={ativo} />}
           </div>
 
-          <div className={styles.infoMenu}>
-            {/* Links para diferentes partes do menu */}
-            <NavLink to={"/editar-categoria"}>Editar minha categoria</NavLink>
-            <NavLink to={"/conta"}>Meu Perfil</NavLink>
-            <NavLink to={"/indique"}>Indique e Ganhe</NavLink>
-          </div>
-
-          <div className={styles.ul}>
-            <ul className={styles.linksMenu}>
-              {/* Links do menu */}
-              <li>comprar Moedas</li>
-              <li>Pedidos Disponíveis</li>
-              <li>Meus Pedidos</li>
-              <li>Alguma coisa</li>
-              <li>Contratar um profissional</li>
-              <li>Fale Conosco</li>
-              <li>Sair</li>
-            </ul>
-          </div>
+          <div>{mobile && <LinksMenu ativo={ativo} />}</div>
         </nav>
       </header>
     </Container>

@@ -25,6 +25,10 @@
   height: 2px;
   background-color: var(--cor-a6);
 }
+.buttonContainer {
+  display: flex;
+  gap: 2rem;
+}
 
 .acessarConta:hover:after {
   background-color: var(--amarelo);
@@ -54,6 +58,10 @@
   max-height: 3px;
   height: 2px;
   background-color: var(--cor-a6);
+}
+
+.section {
+  width: 100%;
 }
 
 .customCheckbox {

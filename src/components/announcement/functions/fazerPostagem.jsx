@@ -4,6 +4,9 @@
 // e o useFetch para fazer a requisição HTTP
 import { SERVICO_POST } from "../../../Api";
 import useFetch from "../../../Hooks/useFetch";
+import React from "react";
+import { UserContext } from "../../../userContext"; // Substitua pelo caminho correto para o seu contexto de usuário
+import SuccessPost from "./SuccessPost";
 
 /**
  * Função para fazer a postagem de um anúncio.
@@ -17,8 +20,8 @@ export async function fazerPostagemAnuncio(
   formData,
   request,
   navigate,
-  error,
   setError,
+  loading,
 ) {
   try {
     // Obtém o token do localStorage para autenticação
@@ -31,7 +34,7 @@ export async function fazerPostagemAnuncio(
     const { response } = await request(url, options);
 
     // Verifica se a requisição foi bem-sucedida
-    if (response.ok) {
+    if (response.ok && loading === false) {
       // Se sim, redireciona o usuário para a página de conta
       navigate("/conta");
     } else {

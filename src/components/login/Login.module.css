@@ -20,6 +20,7 @@
   max-width: 70rem;
   justify-items: center;
 }
+
 .forms h4 {
   padding: 2rem;
   border-radius: 5px;
@@ -30,9 +31,13 @@
   justify-self: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .forms {
     min-width: max-content;
+    box-shadow: none;
+    margin: none;
+    background: none;
+    padding: 3rem;
   }
 
   .login {

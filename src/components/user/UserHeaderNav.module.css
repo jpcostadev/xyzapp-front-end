@@ -35,6 +35,52 @@
 }
 
 .nav a:global(.active) svg > * {
-  fill: var(--amarelo2);
+  /* fill: var(--amarelo2); */
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1), -1px -1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.navContainerMobile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navMobile ul {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.2rem 3rem;
+  align-items: center;
+  background-color: var(--amarelo);
+  z-index: 1000;
+}
+
+.navMobile li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navMobile li a {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  outline: none;
+}
+
+.navMobile li a:hover,
+.navMobile li a:focus,
+.navMobile button:hover,
+.navMobile button:focus {
+  background-color: var(--amarelo3);
+  border-color: var(--cor-a5);
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1), -1px -1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.navMobile svg {
+  width: 32px;
+  height: 32px;
 }

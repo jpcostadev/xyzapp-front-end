@@ -15,6 +15,7 @@ import { useContext } from "react";
 import { useState, useEffect } from "react";
 import { fetchUserData } from "./functions/fetchUserData";
 import { fazerPostagemAnuncio } from "./functions/FazerPostagem";
+import SuccessPost from "./functions/SuccessPost";
 
 const AnuncioPost = () => {
   // Estado para armazenar os arquivos de fotos selecionados
@@ -44,10 +45,12 @@ const AnuncioPost = () => {
   const { getUser } = useContext(UserContext);
 
   // Hook de requisição HTTP personalizado
-  const { data, error, setError, loading, request } = useFetch();
+  const { data, error, setError, loading, setLoading, request } = useFetch();
   // Hook para navegação em rotas
   const navigate = useNavigate();
   // Opções de categorias para o select
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
   const options = [
     { value: "", label: "Selecione a categoria" },
     { value: "advogado", label: "Advogado" },
@@ -110,8 +113,16 @@ const AnuncioPost = () => {
         categoriaSelecionada !== "outros" ? categoriaSelecionada : outrosValue,
       );
 
+      // Desabilita o botão de envio
+      setSubmitButtonDisabled(true);
+
       // Chama a função para fazer a postagem do anúncio
-      fazerPostagemAnuncio(formData, request, navigate, error, setError);
+      fazerPostagemAnuncio(formData, request, navigate, setError, loading);
+
+      // Após o envio bem-sucedido, aguarde 3 segundos e reabilite o botão
+      setTimeout(() => {
+        setSubmitButtonDisabled(false);
+      }, 3000);
     }
   }
 
@@ -120,6 +131,23 @@ const AnuncioPost = () => {
     const selectedValue = event.target.value;
     setSelectedOption(event.target.value);
     setCategoriaSelecionada(selectedValue);
+  };
+
+  const renderButton = () => {
+    if (loading) {
+      // Se estiver carregando, exiba o botão desabilitado com "Enviando..."
+      return (
+        <div>
+          <Button disabled>Enviando...</Button>
+          {setTimeout(() => {
+            setLoading(false);
+          }, 6000)}
+        </div>
+      );
+    } else {
+      // Se não estiver carregando, exiba o botão "Anunciar"
+      return <Button>Anunciar</Button>;
+    }
   };
 
   return (
@@ -204,20 +232,17 @@ const AnuncioPost = () => {
           />
         </label>
         <p className={styles.fotosLimite}>
-          Máximo 6 fotos, Dimensão (Recomendado 1080 x 1080)
+          Máximo 3 fotos, Dimensão (Recomendado 1080 x 1080)
         </p>
 
-        {/* Botão de envio do formulário */}
-        {loading ? (
-          <Button disabled>Enviando...</Button>
-        ) : (
-          <Button>Anunciar</Button>
-        )}
-
+        {/* Renderize o botão com base no estado de loading */}
+        <Button type="submit" disabled={loading || submitButtonDisabled}>
+          {loading || submitButtonDisabled ? "Enviando..." : "Anunciar"}
+        </Button>
         {/* Exibe mensagem de erro, se houver */}
-        <Error error={error} />
+        {error && <Error error={error} />}
       </form>
-      <div>
+      <div className={styles.carrocel}>
         {/* Exibe as fotos selecionadas em um carousel */}
         {files.raw && files.raw.length > 0 && (
           <Carousel className={styles.containerPreview}>

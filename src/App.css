@@ -151,7 +151,7 @@ label {
   font-weight: 500;
   position: relative;
   margin-bottom: 2rem;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 .titulo::after {
   display: block;
@@ -188,3 +188,17 @@ label {
 }
 
 /* _______________________________________________________________ */
+
+@media (max-width: 800px) {
+  .titulo {
+    font-size: 3rem;
+    margin-bottom: 0rem;
+  }
+
+  .titulo::after {
+    width: 30px;
+    height: 15px;
+    bottom: 15px;
+    left: 5px;
+  }
+}

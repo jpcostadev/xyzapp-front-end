@@ -2,10 +2,11 @@ import React from "react";
 import styles from "./UserHeaderNav.module.css";
 import { NavLink, useLocation } from "react-router-dom";
 import { UserContext } from "../../userContext";
-import { ReactComponent as MeusAnuncios } from "../../assets/Icones/feed.svg";
-import { ReactComponent as Estatisticas } from "../../assets/Icones/estatisticas.svg";
-import { ReactComponent as Anunciar } from "../../assets/Icones/adicionar.svg";
+import { ReactComponent as MeusAnuncios } from "../../assets/Icones/view-grid.svg";
+import { ReactComponent as Estatisticas } from "../../assets/Icones/trending-up.svg";
+import { ReactComponent as Anunciar } from "../../assets/Icones/plus-circle.svg";
 import { ReactComponent as Sair } from "../../assets/Icones/sair.svg";
+import { ReactComponent as Config } from "../../assets/Icones/cog.svg";
 import { useNavigate } from "react-router-dom";
 import useMedia from "../../Hooks/useMedia";
 
@@ -61,7 +62,35 @@ const UserHeaderNav = () => {
           </nav>
         </section>
       ) : (
-        ""
+        <section className={styles.navContainerMobile}>
+          {/* Navegação do usuário */}
+          <nav className={`${styles.navMobile} `}>
+            <ul>
+              <li>
+                <NavLink to="/conta" end>
+                  <MeusAnuncios />
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/conta/estatisticas">
+                  <Estatisticas />
+                </NavLink>
+              </li>
+              <li>
+                {" "}
+                <NavLink to="/conta/anunciar">
+                  <Anunciar />
+                </NavLink>
+              </li>
+              <li>
+                {" "}
+                <NavLink to="/conta/config">
+                  <Config />
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        </section>
       )}
     </>
   );

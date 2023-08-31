@@ -1,0 +1,51 @@
+@import "../MenuMobile.module.css";
+
+.infoMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 0 2rem 0;
+  border-bottom: 1px solid var(--cor-a6);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ativo.infoMenu {
+  opacity: 1;
+  pointer-events: initial;
+  transition: 1s;
+}
+
+.ul ul li {
+  display: flex;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ul {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ativo.ul {
+  opacity: 1;
+  pointer-events: initial;
+  transition: 1s;
+}
+
+.sairBtn {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+.sairBtnContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--amarelo);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1), -1px -1px 1px rgba(0, 0, 0, 0.1);
+}

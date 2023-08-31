@@ -10,9 +10,9 @@ import styles from "./Button.module.css";
  * @param {any} props... - Outras propriedades que podem ser passadas para o elemento button.
  * @returns {JSX.Element} - Retorna um elemento JSX que representa o botão.
  */
-const Button = ({ children, onClick, ...props }) => {
+const Button = ({ type, children, onClick, ...props }) => {
   return (
-    <button onClick={onClick} {...props} className={styles.button}>
+    <button type={type} onClick={onClick} {...props} className={styles.button}>
       {children}
     </button>
   );
