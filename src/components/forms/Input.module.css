@@ -28,6 +28,7 @@
   line-height: 1;
   padding-bottom: 0.5rem;
   font-weight: 500;
+  color: var(--branco2);
 }
 .error {
   color: red;

@@ -67,46 +67,47 @@ const MenuMobile = () => {
   }, []);
 
   return (
-    <Container>
-      <header className={styles.header}>
-        <nav
-          className={`${styles.nav} ${mobileMenu && styles.navActive} `}
-          ref={menuRef}
+    <header className={styles.header}>
+      <nav
+        className={`${styles.nav} ${mobileMenu && styles.navActive} `}
+        ref={menuRef}
+      >
+        {/* Botão e nav do menu Mobile */}
+        <div className={styles.btnContainer}>
+          {/* Botão para abrir/fechar o menu móvel */}
+          {mobile && (
+            <button
+              className={`${styles.mobileButton} ${
+                mobileMenu ? styles.mobileButtonActive : styles.mobileButton
+              }`}
+              aria-label="Menu"
+              onClick={handleMobileMenuClick}
+            >
+              <span className={styles.hamburger}></span>
+            </button>
+          )}
+          {/* Link para a página inicial (apenas visível em telas não móveis) */}
+          {!mobile ? (
+            <Link to={"/"} aria-label="xyz - home" className={styles.logo}>
+              LOGO
+            </Link>
+          ) : (
+            ""
+          )}
+        </div>
+
+        {/*  A partir daqui só renderiza se estiver logado. */}
+        <div
+          className={`${styles.infoUser} ${
+            mobileMenu && styles.infoUserActive
+          } `}
         >
-          {/* Botão e nav do menu Mobile */}
-          <div className={styles.btnContainer}>
-            {/* Botão para abrir/fechar o menu móvel */}
-            {mobile && (
-              <button
-                className={`${styles.mobileButton} ${
-                  mobileMenu ? styles.mobileButtonActive : styles.mobileButton
-                }`}
-                aria-label="Menu"
-                onClick={handleMobileMenuClick}
-              >
-                <span className={styles.hamburger}></span>
-              </button>
-            )}
-            {/* Link para a página inicial (apenas visível em telas não móveis) */}
-            {!mobile ? (
-              <Link to={"/"} aria-label="xyz - home" className={styles.logo}>
-                LOGO
-              </Link>
-            ) : (
-              ""
-            )}
-          </div>
+          {mobile && <UserInfo user={data} ativo={ativo} />}
+        </div>
 
-          {/*  A partir daqui só renderiza se estiver logado. */}
-          <div className={styles.infoUser}>
-            {mobile && <UserInfo user={data} ativo={ativo} />}
-            {mobile && <InfoPlans user={data} ativo={ativo} />}
-          </div>
-
-          <div>{mobile && <LinksMenu ativo={ativo} />}</div>
-        </nav>
-      </header>
-    </Container>
+        <div>{mobile && <LinksMenu ativo={ativo} />}</div>
+      </nav>
+    </header>
   );
 };
 

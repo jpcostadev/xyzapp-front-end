@@ -1,6 +1,5 @@
 .nav {
-  background-image: url(../../assets/img/bgNav.svg);
-  background-position: center center;
+  background-color: var(--preto1);
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
@@ -15,7 +14,7 @@
 }
 
 .navActive {
-  background-image: url(../../assets/img/bgNav.svg);
+  background-color: var(--preto2);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -31,6 +30,7 @@
   gap: 2rem;
   padding: 1rem;
   transition: 0.3s;
+  padding: 3rem;
 }
 
 /* Mobile Button */
@@ -59,7 +59,7 @@
 }
 
 .mobileButton .hamburger {
-  border-top-color: black;
+  border-top-color: var(--branco);
 }
 
 .mobileButtonActive .nav {
@@ -70,12 +70,12 @@
 }
 .mobileButtonActive .hamburger::before {
   transform: rotate(135deg);
-  background-color: black;
+  background-color: var(--branco);
   left: 15px;
 }
 .mobileButtonActive .hamburger::after {
   transform: rotate(-135deg);
-  background-color: black;
+  background-color: var(--branco);
   top: -7px;
   left: 15px;
 }
@@ -93,7 +93,7 @@
 .hamburger::before {
   content: "";
   display: block;
-  background-color: black;
+  background-color: var(--branco);
   width: 20px;
   height: 2px;
   margin-top: 5px;
@@ -106,4 +106,17 @@
   display: flex;
   align-items: center;
   padding-top: 3rem;
+  background-color: var(--amarelo);
+  opacity: 0;
+  border-radius: 100px;
+}
+
+.infoUserActive {
+  display: flex;
+  align-items: center;
+  padding-top: 3rem;
+  background-color: var(--amarelo);
+  padding: 1rem;
+  opacity: 1;
+  transition: 0.3s;
 }

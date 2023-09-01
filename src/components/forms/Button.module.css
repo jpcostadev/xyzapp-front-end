@@ -4,13 +4,12 @@
   border-radius: 5px;
   border: none;
   background-color: var(--amarelo);
-  color: var(--amarelo2);
+  color: var(--preto1);
   font-weight: 500;
   padding: 0.8rem 1.2rem;
   cursor: pointer;
   transition: 0.2s;
   min-width: 8rem;
-  box-shadow: 6px 6px 12px #d3d3d3, -6px -6px 12px #ffffff;
 }
 
 .button:hover,
