@@ -1,42 +1,51 @@
 @import "../MenuMobile.module.css";
+.infoMenu a {
+  display: none;
+}
 
-.infoMenu {
+.ativo.infoMenu {
+  gap: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 0 0 2rem 0;
+  transition: 0.3s;
+  background-color: var(--cor-a1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  transition: 0.3s;
   border-bottom: 1px solid var(--cor-a6);
-  opacity: 0;
-  pointer-events: none;
   color: var(--branco1);
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
-.infoMenu a {
+
+.ativo.infoMenu a {
   color: var(--branco1);
-}
-
-.ativo.infoMenu {
-  opacity: 1;
-  pointer-events: initial;
-  transition: 1s;
-}
-
-.ul ul li {
   display: flex;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  transition: 0.3s;
+  align-items: center;
+}
+.ativo.infoMenu a:hover {
+  background-color: var(--cor-a2);
+  padding: 0.8rem;
+  border-radius: 100px;
 }
 
 .ul {
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 }
 
 .ativo.ul {
-  opacity: 1;
-  pointer-events: initial;
-  transition: 1s;
+  display: block;
+}
+
+.ativo.ul ul li {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .sairBtn {
@@ -46,6 +55,8 @@
   cursor: pointer;
 }
 .sairBtnContainer {
+  color: var(--preto1);
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -54,4 +65,7 @@
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1), -1px -1px 1px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 800px) {
 }

@@ -19,6 +19,11 @@ const types = {
     regex: /^\d+$/, // Expressão regular para validar números
     message: "Utilize números apenas", // Mensagem de erro para números inválidos
   },
+
+  telefone: {
+    regex: /^\d{10}$/, // Adicione sua expressão regular para números de telefone de 10 dígitos
+    message: "O número de telefone deve conter exatamente 10 dígitos", // Mensagem de erro para números de telefone inválidos
+  },
 };
 
 // Componente useForm para lidar com a validação de campos de formulário

@@ -83,23 +83,24 @@ export function LIMIT_POST(body) {
 }
 
 // Função que gera uma requisição POST para criar um novo serviço
-export function SERVICO_POST(formData, token) {
+export function SERVICO_POST(body, token) {
   return {
     url: API_URL + "/api/servico",
     options: {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: formData,
+      body: JSON.stringify(body),
     },
   };
 }
 
 // Função que gera uma requisição GET para buscar informações de serviços
-export function SERVICO_GET(token) {
+export function SERVICO_GET(token, id) {
   return {
-    url: API_URL + "/api/servico",
+    url: `${API_URL}/api/servico?usuario_id=${id}`,
     options: {
       method: "GET",
       headers: {
@@ -108,18 +109,37 @@ export function SERVICO_GET(token) {
     },
   };
 }
-
-// Função que gera uma requisição GET para buscar informações de todos os serviços
-export function SERVICO_GET_ALL(token) {
+export function POST_GET(id) {
   return {
-    url: API_URL + "/api/servico",
+    url: `${API_URL}/api/servico?${id}`,
     options: {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      cache: "no-store",
     },
   };
+}
+
+// Busca as postagens de um usuário específico
+export function SERVICO_GET_ALL() {
+  return {
+    url: `${API_URL}/api/user/posts`,
+    options: {
+      method: "GET",
+    },
+  };
+}
+
+// API PARA VERIFICAR CEP
+export async function BUSCAR_CEP(cep) {
+  const urlCep = `https://viacep.com.br/ws/${cep}/json/`;
+  try {
+    const response = await fetch(urlCep);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Erro ao buscar o CEP:", error);
+    return null;
+  }
 }
 
 /*

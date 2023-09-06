@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const UserInfo = ({ user, ativo }) => {
   return (
-    <div className={`${ativo && styles.ativo} ${styles.infoContent}`}>
+    <div className={`${ativo && styles.ativo} ${styles.infoContent} animeLeft`}>
       <div className={styles.userProfile}>
         {user ? (
           <Link to="/conta" className={styles.login}>
@@ -16,14 +16,33 @@ const UserInfo = ({ user, ativo }) => {
           </Link>
         )}
       </div>
-
-      {user ? (
-        <p className={styles.plano}>
-          Plano: <span>{user ? user.plano_ativo : "Carregando..."}</span>
-        </p>
-      ) : (
-        ""
-      )}
+      <div className={styles.dados}>
+        {user ? (
+          <p className={styles.plano}>
+            Plano: <span>{user ? user.plano_ativo : "Carregando..."}</span>
+          </p>
+        ) : (
+          ""
+        )}
+        {user ? (
+          <p className={styles.plano}>
+            Postagens:{" "}
+            <span>
+              {" "}
+              {user.contador_postagens}/ {user.limite_postagens}
+            </span>
+          </p>
+        ) : (
+          ""
+        )}
+        {user ? (
+          <p className={styles.plano}>
+            Duração: <span> {user.tempo_restante} Dias</span>
+          </p>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };

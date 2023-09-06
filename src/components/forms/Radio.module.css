@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  justify-content: start;
+}
+.grid p {
+  margin-bottom: 2rem;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+.grid p span {
+  color: green;
+}
+
+.input {
+  background-color: var(--amarelo4);
+  padding: 1rem;
+  color: var(--amarelo2);
+  font-weight: 500;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+  outline: none;
+}
+
+.input:focus,
+.input:hover {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--amarelo3), 0 0 0 4px var(--amarelo);
+}
+
+/* Estilizando os marcadores de rádio */
+input[type="radio"] {
+  display: inline-block;
+  margin-right: 0.5rem;
+  position: relative; /* Para posicionar os pseudo-elementos em relação a este elemento */
+}
+
+/* Estilo para o círculo não selecionado */
+input[type="radio"]::before {
+  content: ""; /* Criando um elemento vazio */
+  display: inline-block;
+  width: 16px; /* Largura do círculo */
+  height: 16px; /* Altura do círculo */
+  border-radius: 50%; /* Para criar um círculo */
+  border: 2px solid var(--sua-cor-verde); /* Cor da borda do círculo (substitua com a sua cor) */
+  background-color: transparent; /* Cor de fundo transparente */
+  position: absolute; /* Posiciona o círculo em relação ao elemento pai (input[type="radio"]) */
+  top: 50%; /* Alinha o topo do círculo no centro vertical */
+  left: 0; /* Alinha o círculo à esquerda do elemento pai */
+  transform: translateY(-50%); /* Move o círculo para o centro vertical */
+}
+
+/* Estilo para o círculo selecionado (marcado) */
+input[type="radio"]:checked::before {
+  background-color: var(
+    --sua-cor-verde
+  ); /* Cor de fundo do círculo quando selecionado (substitua com a sua cor) */
+  border-color: var(
+    --sua-cor-verde
+  ); /* Cor da borda do círculo quando selecionado (substitua com a sua cor) */
+}

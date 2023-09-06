@@ -37,8 +37,8 @@
   cursor: pointer;
   transition: 0.2s;
   min-width: 8rem;
+  color: var(--preto1);
   max-width: max-content;
-  box-shadow: -5px -5px 10px #dfdfdf, 5px 5px 10px #ffffff;
 }
 
 .button:hover,

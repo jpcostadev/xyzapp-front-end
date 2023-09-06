@@ -26,6 +26,7 @@ const Input = ({
   onBlur,
   placeholder,
   required,
+  disabled,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -42,6 +43,7 @@ const Input = ({
         value={value}
         onBlur={onBlur}
         placeholder={placeholder}
+        disabled={disabled}
       ></input>
       {error && <p className={styles.error}>{error}</p>}
     </div>

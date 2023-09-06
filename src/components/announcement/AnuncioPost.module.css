@@ -5,12 +5,27 @@
   margin-bottom: 1rem;
 }
 
+.mid {
+  display: grid;
+  justify-content: center;
+}
+
+.anuncio {
+  background-color: var(--amarelo);
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .label {
   display: block;
   font-size: 1.6rem;
   line-height: 1;
   padding-bottom: 0.5rem;
   font-weight: 500;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
 }
 .msgArquivo {
   display: block;
@@ -27,52 +42,60 @@
 
 .anuncioPost {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 100px 1fr 100px;
+  justify-items: center;
+  max-width: 800px;
   max-height: max-content;
   gap: 2rem;
   margin-bottom: 2rem;
 }
-
-.containerPreview {
-  position: relative;
-  width: fit-content;
-  height: fit-content;
+.anuncioPost form {
+  width: 500px;
+  margin: 0 auto;
 }
-.preview {
-  border-radius: 1rem;
-  object-fit: cover;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
+
+.disponibilidade {
+  display: flex;
+  gap: 1rem;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.checkboxLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.h5 {
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.customCheckbox {
+  width: 20px;
+  height: 20px;
+  background-color: var(
+    --amarelo
+  ); /* Cor de fundo do checkbox quando selecionado */
+  border: 1px solid var(--amarelo); /* Borda do checkbox */
+  border-radius: 4px; /* Cantos arredondados */
+  cursor: pointer; /* Mude o cursor para indicar que é clicável */
+  margin-bottom: 0.5rem;
+}
+
+/* Estilize o checkbox quando estiver marcado */
+.customCheckbox:checked {
+  background-color: var(--amarelo); /* Cor de fundo quando selecionado */
+  border: 1px solid var(--amarelo); /* Borda quando selecionado */
+  color: white; /* Cor do ícone de marca de seleção (se aplicável) */
 }
 
 /* -------------------------------------------------------- */
-
-/* Esconda o input de arquivo */
-input[type="file"] {
-  display: none;
-}
-
-/* Estilize um rótulo que ativa o input de arquivo */
-.labelforfile {
-  display: block;
-  max-width: max-content;
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-  border-radius: 5px;
-  background-color: var(--cor-a8); /* Cor de fundo do botão */
-  color: #fff; /* Cor do texto do botão */
-  padding: 8px 16px; /* Espaçamento interno do botão */
-  border: none;
-  cursor: pointer; /* Altera o cursor para parecer um botão */
-}
-
-/* Estilo opcional para exibir o nome do arquivo selecionado */
-.selectedFileName {
-  margin-top: 10px;
-  font-size: 12px;
-  color: #333; /* Cor do texto do nome do arquivo */
-}
 
 @media (max-width: 800px) {
   .anuncioPost {
@@ -80,15 +103,12 @@ input[type="file"] {
   }
 
   .anuncioPost form {
+    max-width: 300px;
     grid-row: 2;
     margin-bottom: 4rem;
-  }
-  .carrocel {
-    margin-bottom: 0rem;
-  }
-  .containerPreview {
-    position: relative;
-    width: fit-content;
-    height: fit-content;
+    background-color: var(--preto2);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1), -1px -1px 1px rgba(0, 0, 0, 0.1);
   }
 }

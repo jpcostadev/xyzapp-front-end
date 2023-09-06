@@ -1,17 +1,20 @@
-.infoContent {
-  display: flex;
+.ativo.infoContent {
+  display: grid;
   gap: 1rem;
   align-items: center;
-  width: 100%;
-  grid-row: 1;
-  opacity: 0;
-  pointer-events: none;
-  justify-content: space-between;
-}
-.ativo.infoContent {
   opacity: 1;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
   pointer-events: initial;
-  transition: 0.5s;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--cor-a6);
+  padding: 1.5rem;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.dados {
+  display: block;
 }
 
 .userProfile {
@@ -25,14 +28,25 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  color: var(--branco);
+  color: var(--preto);
+  transition: 0.3s;
 }
 
 .plano {
   font-weight: 500;
   text-transform: capitalize;
-  padding: 1rem;
+  padding: 0.3rem;
+  font-size: 1.3rem;
+  transition: 0.3s;
 }
 .plano span {
   color: green;
+  transition: 0.5s;
+}
+
+@media (max-width: 800px) {
+  .login {
+    color: var(--branco);
+    font-size: 1.8rem;
+  }
 }

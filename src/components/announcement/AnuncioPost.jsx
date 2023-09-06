@@ -15,17 +15,12 @@ import { useContext } from "react";
 import { useState, useEffect } from "react";
 import { fetchUserData } from "./functions/fetchUserData";
 import { fazerPostagemAnuncio } from "./functions/FazerPostagem";
-import SuccessPost from "./functions/SuccessPost";
+import ContainerMid from "../global/ContainerMid";
+import GeolocationApp from "../localizacao/geolocation";
 
 const AnuncioPost = () => {
-  // Estado para armazenar os arquivos de fotos selecionados
-  const [files, setFiles] = React.useState([]);
-
   // Estado para armazenar a opção selecionada no formulário
   const [selectedOption, setSelectedOption] = React.useState("");
-
-  // Estado para armazenar o valor inserido na categoria "outros"
-  const [outrosValue, setOutrosValue] = React.useState("");
 
   // Estado para armazenar a categoria selecionada
   const [categoriaSelecionada, setCategoriaSelecionada] = React.useState("");
@@ -34,11 +29,9 @@ const AnuncioPost = () => {
   // const [postLimitExceeded, setPostLimitExceeded] = useState(false);
 
   // Define o número máximo de fotos
-  const MAX_PHOTOS = 3;
 
   // Hooks personalizados para o gerenciamento de campos de formulário
   const titulo = useForm();
-  const descricao = useForm();
   const categoria = useForm();
 
   // Obtém o contexto de usuário
@@ -51,216 +44,405 @@ const AnuncioPost = () => {
   // Opções de categorias para o select
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-  const options = [
-    { value: "", label: "Selecione a categoria" },
-    { value: "advogado", label: "Advogado" },
-    { value: "aricultor", label: "Agricultor" },
-    { value: "almoxarife", label: "Almoxarife" },
-    { value: "acupunturista", label: "Acupunturista" },
-    { value: "alfaiate", label: "Alfaiate" },
-    { value: "arquiteto", label: "Arquiteto" },
-    { value: "babá", label: "Babá" },
-    { value: "barbeiro", label: "Barbeiro" },
-    { value: "bartender", label: "Bartender" },
-    { value: "carpinteiro", label: "Carpinteiro" },
-    { value: "cabeleireiro", label: "Cabeleireiro" },
-    { value: "chaveiro", label: "Chaveiro" },
-    { value: "costureira", label: "Costureira" },
-    { value: "cozinheiro", label: "Cozinheiro(a)" },
-    { value: "diarista", label: "Diarísta" },
-    { value: "designergráfico", label: "Designer Gráfico" },
-    { value: "eletricista", label: "Eletricista" },
-    { value: "encanador", label: "Encanador" },
-    { value: "esteticista", label: "Esteticista" },
-    { value: "fisioterapeuta", label: "Fisioterapeuta" },
-    { value: "fotógrafo", label: "Fotógrafo" },
-    { value: "jardineiro", label: "Jardineiro" },
-    { value: "manicure", label: "Manicure" },
-    { value: "massagista", label: "Massagista" },
-    { value: "nutricionista", label: "Nutricionista" },
-    { value: "pedreiro", label: "Pedreiro" },
-    { value: "personal-trainer", label: "Personal Trainer" },
-    { value: "pintor", label: "Pintor" },
-    { value: "psicólogo", label: "Psicólogo" },
-    { value: "tatuador", label: "Tatuador" },
-    { value: "outros", label: "outros" },
+  const [selectedSubcategoria, setSelectedSubcategoria] = React.useState("");
+
+  const turnos = [
+    { value: "manha", label: "Manhã" },
+    { value: "tarde", label: "Tarde" },
+    { value: "noite", label: "Noite" },
+    { value: "24horas", label: "24 Horas" },
+  ];
+  const categorias = [
+    {
+      label: "Selecione o Serviço",
+      subcategorias: ["Selecione o Serviço"],
+    },
+    {
+      label: "Arte e Cultura",
+      subcategorias: [
+        "Artista Plástico",
+        "Dublador(a)",
+        "Escritor(a) e Redator(a)",
+        "Fotógrafo(a) de Arte",
+        "Guia Turístico",
+        "Historiador(a) da Arte",
+        "Músico(a) de Rua",
+      ],
+    },
+
+    {
+      label: "Automotivo",
+      subcategorias: [
+        "Eletricista Automotivo",
+        "Funileiro",
+        "Instalador de Som Automotivo",
+        "Lavagem e Polimento",
+        "Mecânico de Automóveis",
+        "Pintura Automotiva",
+        "Serviço de Guincho",
+      ],
+    },
+
+    {
+      label: "Beleza e Cuidados Pessoais",
+      subcategorias: [
+        "Barbeiro",
+        "Cabeleireiro(a)",
+        "Depilador(a)",
+        "Esteticista",
+        "Manicure e Pedicure",
+        "Maquiador(a)",
+        "Massoterapeuta",
+        "Consultor(a) de Moda",
+      ],
+    },
+
+    {
+      label: "Construção Civil",
+      subcategorias: [
+        "Carpinteiro",
+        "Encanador",
+        "Eletricista",
+        "Gesseiro",
+        "Marceneiro",
+        "Montador de Móveis",
+        "Pedreiro",
+        "Serralheiro",
+        "Tapeceiro",
+        "Telhadista",
+        "Vidraceiro",
+        "Serralheiro",
+      ],
+    },
+
+    {
+      label: "Culinária e Alimentação",
+      subcategorias: [
+        "Bartender",
+        "Chef de Cozinha",
+        "Churrasqueiro",
+        "Confeiteiro(a)",
+        "Consultor(a) de Alimentos",
+        "Nutricionista",
+        "Personal Chef",
+        "Sommelier",
+      ],
+    },
+
+    {
+      label: "Educação e Aulas Particulares",
+      subcategorias: [
+        "Aulas de Artes",
+        "Aulas de Música",
+        "Coach de Estudos",
+        "Preparador(a) para Concursos",
+        "Professor(a) de Dança",
+        "Professor(a) de Inglês",
+        "Tutor(a) Acadêmico",
+      ],
+    },
+
+    {
+      label: "Eventos e Entretenimento",
+      subcategorias: [
+        "Bartender",
+        "Buffet",
+        "Decorador de Eventos",
+        "DJ",
+        "Fotógrafo",
+        "Iluminação e Som",
+        "Mestre de Cerimônias",
+        "Organizador de Eventos",
+        "Palhaços e Animadores",
+        "Segurança de Eventos",
+      ],
+    },
+
+    {
+      label: "Saúde e Bem-Estar",
+      subcategorias: [
+        "Acupunturista",
+        "Consultor(a) de Saúde",
+        "Enfermeiro(a) Domiciliar",
+        "Fisioterapeuta",
+        "Massagista",
+        "Personal Trainer",
+        "Psicólogo(a)",
+        "Quiropraxista",
+        "Terapeuta Holístico",
+      ],
+    },
+    {
+      label: "Serviços Domésticos",
+      subcategorias: [
+        "Assistente Pessoal",
+        "Babá",
+        "Cuidador de Idosos",
+        "Cozinheiro(a) Particular",
+        "Dog Walker",
+        "Faxineira",
+        "Jardineiro",
+        "Lavanderia",
+        "Motorista Particular",
+        "Personal Organizer",
+      ],
+    },
+    {
+      label: "Tecnologia e Informática",
+      subcategorias: [
+        "Analista de Dados",
+        "Consultor(a) de TI",
+        "Desenvolvedor(a) Web",
+        "Designer Gráfico",
+        "Especialista em Redes",
+        "Especialista em Segurança Cibernética",
+        "Programador(a)",
+        "Suporte Técnico",
+        "Técnico de Informática",
+      ],
+    },
+    {
+      label: "Limpeza e Organização",
+      subcategorias: [
+        "Organizador(a) Profissional",
+        "Limpeza Pós-Obra",
+        "Limpeza de Carpetes e Estofados",
+        "Limpeza de Dutos de Ar Condicionado",
+        "Limpeza de Vidros e Fachadas",
+        "Serviço de Faxina Pesada",
+        "Limpeza de Piscinas",
+      ],
+    },
+    {
+      label: "Design e Decoração",
+      subcategorias: [
+        "Designer de Interiores",
+        "Consultor(a) de Decoração",
+        "Paisagista",
+        "Consultor(a) de Feng Shui",
+        "Estilista de Eventos",
+        "Consultor(a) de Moda",
+      ],
+    },
+    {
+      label: "Pets e Animais de Estimação",
+      subcategorias: [
+        "Groomer (Tosa e Banho)",
+        "Treinador(a) de Cães",
+        "Veterinário(a) Domiciliar",
+        "Adestrador(a) de Gatos",
+        "Pet Sitter",
+        "Serviço de Creche para Cães",
+        "Nutricionista de Pets",
+      ],
+    },
+    {
+      label: "Consultoria Financeira",
+      subcategorias: [
+        "Planejador(a) Financeiro",
+        "Consultor(a) de Investimentos",
+        "Contador(a) Pessoal",
+        "Especialista em Impostos",
+        "Consultor(a) de Finanças Pessoais",
+        "Advogado(a) de Direito Financeiro",
+      ],
+    },
+    {
+      label: "Serviços Jurídicos",
+      subcategorias: [
+        "Advogado(a) de Família",
+        "Advogado(a) Criminal",
+        "Advogado(a) de Imigração",
+        "Advogado(a) de Direito do Trabalho",
+        "Advogado(a) de Direito Imobiliário",
+        "Advogado(a) de Direito Empresarial",
+        "Mediador(a) de Conflitos",
+      ],
+    },
+    {
+      label: "Marketing e Publicidade:",
+      subcategorias: [
+        "Consultor(a) de Marketing",
+        "Social Media Manager",
+        "Consultor(a) de SEO",
+        "Copywriter",
+        "Designer Gráfico para Marketing",
+        "Analista de Dados de Marketing",
+      ],
+    },
+    {
+      label: "Transporte e Logística",
+      subcategorias: [
+        "Transportadora de Mudanças",
+        "Motorista de Caminhão",
+        "Transporte de Mercadorias",
+        "Serviço de Entrega Rápida",
+        "Serviço de Moto Frete",
+        "Consultor(a) Logístico",
+        "Aluguel de Veículos",
+      ],
+    },
   ];
 
   // Função para lidar com o envio do formulário
   async function handleSubmit(event) {
     event.preventDefault();
-    if (files.length === 0) {
-      setError("Pelo menos uma foto é necessária para enviar o anúncio.");
-    } else {
-      // Realiza a verificação do usuário antes de fazer a postagem
-      fetchUserData(request, navigate, setError, error, getUser, useFetch);
 
-      // Cria um objeto FormData para enviar os dados do formulário
-      const formData = new FormData();
-      formData.append("titulo", titulo.value);
-      formData.append("descricao", descricao.value);
-      formData.append("categoria", categoria.value);
-      formData.append("outros", outrosValue);
+    const userData = await fetchUserData(
+      request,
+      navigate,
+      setError,
+      error,
+      getUser,
+      useFetch,
+    );
+    const turno_atendimento = turnosSelecionados.join(", "); // Junta os turnos selecionados em uma única string separada por vírgulas
 
-      // Adiciona as fotos selecionadas ao FormData
-      for (let i = 0; i < files.raw.length; i++) {
-        formData.append(`foto${i}`, files.raw[i]);
-      }
+    // Dentro da função handleSubmit
+    const body = {
+      titulo: titulo.value,
+      categoria: selectedOption,
+      sub_categoria: selectedSubcategoria,
+      turno_atendimento: turno_atendimento,
+      // email: userData.email || "",
+      // whatsapp: userData.whatsapp || "",
+      // telefone: userData.telefone || "",
+    };
 
-      // Define a categoria com base na seleção ou no valor inserido em "outros"
-      formData.append(
-        "categoria",
-        categoriaSelecionada !== "outros" ? categoriaSelecionada : outrosValue,
-      );
+    // Desabilita o botão de envio
+    setSubmitButtonDisabled(true);
 
-      // Desabilita o botão de envio
-      setSubmitButtonDisabled(true);
+    // Chama a função para fazer a postagem do anúncio
+    fazerPostagemAnuncio(body, request, navigate, setError, loading);
 
-      // Chama a função para fazer a postagem do anúncio
-      fazerPostagemAnuncio(formData, request, navigate, setError, loading);
-
-      // Após o envio bem-sucedido, aguarde 3 segundos e reabilite o botão
-      setTimeout(() => {
-        setSubmitButtonDisabled(false);
-      }, 3000);
-    }
+    // Após o envio bem-sucedido, aguarde 3 segundos e reabilite o botão
+    setTimeout(() => {
+      setSubmitButtonDisabled(false);
+    }, 3000);
   }
 
-  // Função para lidar com a mudança da opção no select de categoria
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
-    setSelectedOption(event.target.value);
-    setCategoriaSelecionada(selectedValue);
-  };
+    setSelectedOption(selectedValue);
 
-  const renderButton = () => {
-    if (loading) {
-      // Se estiver carregando, exiba o botão desabilitado com "Enviando..."
-      return (
-        <div>
-          <Button disabled>Enviando...</Button>
-          {setTimeout(() => {
-            setLoading(false);
-          }, 6000)}
-        </div>
-      );
-    } else {
-      // Se não estiver carregando, exiba o botão "Anunciar"
-      return <Button>Anunciar</Button>;
+    // Defina a categoria selecionada
+    setCategoriaSelecionada(selectedValue);
+
+    // Se a categoria selecionada não for "Selecione a categoria", defina a subcategoria para vazio
+    if (selectedValue !== "Selecione a categoria") {
+      setSelectedSubcategoria("");
     }
   };
 
+  useEffect(() => {
+    // Define o título como a subcategoria selecionada
+    if (selectedSubcategoria) {
+      titulo.setValue(selectedSubcategoria);
+    }
+  }, [selectedSubcategoria, titulo]);
+
+  // No início do componente, declaro um estado para armazenar as opções de turno selecionadas.
+  const [turnosSelecionados, setTurnosSelecionados] = React.useState([]);
+
+  const handleTurnoChange = (event, turnoValue) => {
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      // Se o checkbox estiver marcado, adicione o valor do turno aos turnos selecionados.
+      setTurnosSelecionados([...turnosSelecionados, turnoValue]);
+    } else {
+      // Se o checkbox estiver desmarcado, remova o valor do turno dos turnos selecionados.
+      const updatedTurnos = turnosSelecionados.filter(
+        (value) => value !== turnoValue,
+      );
+      setTurnosSelecionados(updatedTurnos);
+    }
+  };
   return (
-    <section className={`${styles.anuncioPost} animeLeft`}>
-      <form onSubmit={handleSubmit}>
-        {/* Componente de input para o título */}
-        <Input label="Titulo" type="text" name="titulo" required {...titulo} />
+    <ContainerMid>
+      <div className={styles.mid}>
+        <section className={`${styles.anuncioPost} animeLeft`}>
+          <div className={styles.anuncio}>
+            <h1>Anuncio</h1>
+          </div>
 
-        {/* Componente de input para a descrição */}
-        <TextArea
-          label="Descrição"
-          name="descricao"
-          rows={6}
-          cols={60}
-          placeholder="Digite sua descrição aqui..."
-          {...descricao}
-        />
+          <form onSubmit={handleSubmit}>
+            {/* Componente de input para o título */}
+            <h5 className={`${styles.h5} subTitulo`}>Título</h5>
+            <Input
+              disabled
+              name="titulo"
+              {...titulo}
+              value={selectedSubcategoria}
+            />
 
-        <div>
-          <p className={styles.label}>Categoria</p>
-          {/* Componente de select para a categoria */}
-          <Select
-            name="categoria"
-            required
-            className={styles.select}
-            options={options}
-            onChange={handleSelectChange}
-          />
-
-          {selectedOption.toLowerCase() === "outros" ? null : (
-            <p className={styles.label}>Opção selecionada: {selectedOption}</p>
-          )}
-
-          {selectedOption.toLowerCase() === "outros" ? (
+            {/* Componente de input para a Categoria */}
             <div>
-              {/* Componente de input para inserir categoria personalizada */}
-              <Input
-                className={styles.outros}
-                type="text"
-                label="Escolha a categoria"
-                name="outrosValue"
-                value={outrosValue}
-                onChange={(e) => setOutrosValue(e.target.value)}
+              <Select
+                name="categoria"
                 required
+                className={styles.select}
+                options={categorias.map((categoria) => ({
+                  value: categoria.label,
+                  label: categoria.label,
+                }))}
+                onChange={handleSelectChange}
+              />
+
+              {/* Verifique se categoriaSelecionada é definido corretamente */}
+              <Select
+                name="sub_categoria"
+                required
+                className={styles.select}
+                options={
+                  categoriaSelecionada
+                    ? categorias
+                        .find(
+                          (categoria) =>
+                            categoria.label === categoriaSelecionada,
+                        )
+                        ?.subcategorias.map((subcategoria) => ({
+                          value: subcategoria,
+                          label: subcategoria,
+                        })) || []
+                    : []
+                }
+                value={selectedSubcategoria}
+                onChange={(event) =>
+                  setSelectedSubcategoria(event.target.value)
+                }
               />
             </div>
-          ) : null}
-        </div>
 
-        <label className={styles.labelforfile}>
-          Add Fotos
-          <input
-            type="file"
-            style={{ display: "none" }}
-            onChange={(e) => {
-              // Verifica se algum arquivo foi selecionado
-              if (!e.target.files.length) {
-                return;
-              }
+            <h5 className={`${styles.h5} subTitulo`}>Horários disponíveis</h5>
 
-              // Verifica o número de fotos selecionadas ao adicionar fotos
-              if (
-                e.target.files.length + (files.raw ? files.raw.length : 0) >
-                MAX_PHOTOS
-              ) {
-                setError("Cada anúncio pode ter no máximo 3 fotos.");
-
-                return;
-              } else {
-                // Adiciona as fotos selecionadas ao estado
-                setError(null);
-                setFiles((prevFiles) => ({
-                  preview: URL.createObjectURL(e.target.files[0]),
-                  raw: [
-                    ...(prevFiles.raw ? prevFiles.raw : []),
-                    ...e.target.files,
-                  ],
-                }));
-              }
-            }}
-            multiple
-          />
-        </label>
-        <p className={styles.fotosLimite}>
-          Máximo 3 fotos, Dimensão (Recomendado 1080 x 1080)
-        </p>
-
-        {/* Renderize o botão com base no estado de loading */}
-        <Button type="submit" disabled={loading || submitButtonDisabled}>
-          {loading || submitButtonDisabled ? "Enviando..." : "Anunciar"}
-        </Button>
-        {/* Exibe mensagem de erro, se houver */}
-        {error && <Error error={error} />}
-      </form>
-      <div className={styles.carrocel}>
-        {/* Exibe as fotos selecionadas em um carousel */}
-        {files.raw && files.raw.length > 0 && (
-          <Carousel className={styles.containerPreview}>
-            {Array.from(files.raw)
-              .slice(0, MAX_PHOTOS) // Usa slice para limitar a quantidade de fotos
-              .map((file, index) => (
-                <div key={index}>
-                  <img
-                    className={styles.preview}
-                    src={URL.createObjectURL(file)}
-                    alt={`Slide ${index}`}
+            <div className={styles.checkboxContainer}>
+              {turnos.map((turno) => (
+                <label className={styles.checkboxLabel} key={turno.value}>
+                  <input
+                    className={styles.customCheckbox}
+                    type="checkbox"
+                    value={turno.value}
+                    checked={turnosSelecionados.includes(turno.value)}
+                    onChange={(event) => handleTurnoChange(event, turno.value)}
                   />
-                </div>
+                  {turno.label}
+                </label>
               ))}
-          </Carousel>
-        )}
+            </div>
+            {/* Renderize o botão com base no estado de loading */}
+            <Button type="submit" disabled={loading || submitButtonDisabled}>
+              {loading || submitButtonDisabled ? "Enviando..." : "Anunciar"}
+            </Button>
+            {/* Exibe mensagem de erro, se houver */}
+            {error && <Error error={error} />}
+          </form>
+
+          <div className={styles.anuncio}>
+            <h1>Anuncio</h1>
+          </div>
+        </section>
       </div>
-    </section>
+    </ContainerMid>
   );
 };
 

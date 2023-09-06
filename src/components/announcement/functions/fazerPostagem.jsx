@@ -3,10 +3,6 @@
 // Importa a função SERVICO_POST para criar uma postagem
 // e o useFetch para fazer a requisição HTTP
 import { SERVICO_POST } from "../../../Api";
-import useFetch from "../../../Hooks/useFetch";
-import React from "react";
-import { UserContext } from "../../../userContext"; // Substitua pelo caminho correto para o seu contexto de usuário
-import SuccessPost from "./SuccessPost";
 
 /**
  * Função para fazer a postagem de um anúncio.
@@ -17,7 +13,7 @@ import SuccessPost from "./SuccessPost";
  * @param {Function} setError - Função para definir uma mensagem de erro.
  */
 export async function fazerPostagemAnuncio(
-  formData,
+  body,
   request,
   navigate,
   setError,
@@ -28,10 +24,10 @@ export async function fazerPostagemAnuncio(
     const token = window.localStorage.getItem("token");
 
     // Cria a URL e as opções para a requisição POST usando a função SERVICO_POST
-    const { url, options } = SERVICO_POST(formData, token);
+    const { url, options } = SERVICO_POST(body, token);
 
     // Faz a requisição HTTP para criar a postagem
-    const { response } = await request(url, options);
+    const { response, json } = await request(url, options);
 
     // Verifica se a requisição foi bem-sucedida
     if (response.ok && loading === false) {

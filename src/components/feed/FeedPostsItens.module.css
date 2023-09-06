@@ -1,0 +1,61 @@
+.titulo {
+  background-color: var(--amarelo);
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.anuncioBox {
+  background-color: rgb(240, 240, 240);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 21px 21px 41px #c8c8c8, -21px -21px 41px #ffffff;
+  width: 300px;
+}
+
+.userInfo {
+  background-color: var(--branco);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.containerUser {
+  border-radius: 10px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.user {
+  background-color: rgba(39, 168, 255, 0.534);
+  border-radius: 10px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 1.3rem;
+}
+
+::-webkit-scrollbar {
+  background-color: var(--cor-a6);
+  border-radius: 100px;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--amarelo);
+  border-radius: 100px;
+  width: 6px;
+}
+
+@media (max-width: 800px) {
+  ::-webkit-scrollbar-thumb {
+    background: none;
+    border: none;
+    width: 0;
+  }
+
+  ::-webkit-scrollbar {
+    background: none;
+    border: none;
+    width: 0;
+  }
+}

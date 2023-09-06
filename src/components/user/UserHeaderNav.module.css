@@ -84,3 +84,9 @@
   width: 32px;
   height: 32px;
 }
+
+@media (max-width: 800px) {
+  .navMobile ul {
+    padding: 0.2rem 1rem;
+  }
+}

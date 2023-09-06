@@ -14,7 +14,7 @@
 }
 
 .navActive {
-  background-color: var(--preto2);
+  background-image: url("../../assets//img/bgNav.svg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -59,7 +59,7 @@
 }
 
 .mobileButton .hamburger {
-  border-top-color: var(--branco);
+  border-top-color: var(--preto);
 }
 
 .mobileButtonActive .nav {
@@ -70,12 +70,12 @@
 }
 .mobileButtonActive .hamburger::before {
   transform: rotate(135deg);
-  background-color: var(--branco);
+  background-color: var(--preto);
   left: 15px;
 }
 .mobileButtonActive .hamburger::after {
   transform: rotate(-135deg);
-  background-color: var(--branco);
+  background-color: var(--preto);
   top: -7px;
   left: 15px;
 }
@@ -83,7 +83,7 @@
 .hamburger {
   display: block;
   width: 20px;
-  border-top: 2px solid var(--branco);
+  border-top: 2px solid var(--preto);
   position: fixed;
   z-index: 3000;
   transition: 0.1s;
@@ -93,7 +93,7 @@
 .hamburger::before {
   content: "";
   display: block;
-  background-color: var(--branco);
+  background-color: var(--preto);
   width: 20px;
   height: 2px;
   margin-top: 5px;
@@ -106,17 +106,20 @@
   display: flex;
   align-items: center;
   padding-top: 3rem;
-  background-color: var(--amarelo);
   opacity: 0;
-  border-radius: 100px;
 }
 
 .infoUserActive {
   display: flex;
   align-items: center;
   padding-top: 3rem;
-  background-color: var(--amarelo);
-  padding: 1rem;
+  padding: 1rem 0;
   opacity: 1;
   transition: 0.3s;
+}
+
+@media (max-width: 800px) {
+  .navActive ul {
+    padding: 0 1rem;
+  }
 }

@@ -1,12 +1,10 @@
 import React from "react";
 import Container from "../global/Container";
-
+import Feed from "../feed/Feed";
 const Home = () => {
   return (
     <Container>
-      <div>
-        <h1>Home</h1>
-      </div>
+      <Feed />
     </Container>
   );
 };
