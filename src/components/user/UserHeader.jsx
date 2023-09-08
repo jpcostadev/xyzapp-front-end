@@ -6,6 +6,8 @@ import { UserContext } from "../../userContext";
 import useFetch from "../../Hooks/useFetch";
 import { LIMIT_GET, USER_GET } from "../../Api";
 import useMedia from "../../Hooks/useMedia";
+import FeedModal from "../feed/FeedModal";
+import FeedPost from "../feed/FeedPost";
 
 /**
  * Componente de cabeçalho do usuário.

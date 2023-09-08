@@ -1,0 +1,21 @@
+.delete {
+  background-color: rgba(185, 185, 185, 0.671);
+  padding: 0.8rem 1.2rem;
+  min-width: 8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-weight: 500;
+  color: black;
+}
+
+.delete:hover,
+.delete:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(202, 202, 202, 0.596), 0 0 0 4px rgb(255, 239, 239);
+}
+
+.delete:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}

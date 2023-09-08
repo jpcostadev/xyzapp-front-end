@@ -76,7 +76,7 @@ const LoginCreate = () => {
         tipo: tipo.value === "cliente" ? "cliente" : "profissional",
         termos: termosAceitos ? true : "Aceito Termos",
       });
-
+      console.log(estado);
       const { response } = await request(url, options);
 
       if (response.ok) {

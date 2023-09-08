@@ -8,7 +8,6 @@ import Login from "./components/login/Login";
 import { UserStorage } from "./userContext";
 import User from "./components/user/User";
 import ProtectedRouter from "./components/utils/ProtectedRouter";
-import MenuMobile from "./components/menu/MenuMobile";
 
 function App() {
   return (

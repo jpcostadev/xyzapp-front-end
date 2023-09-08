@@ -1,0 +1,19 @@
+.feed {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-items: center;
+  box-shadow: 21px 21px 41px #c8c8c8, -21px -21px 41px #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+@media (max-width: 800px) {
+  .feed {
+    flex-direction: row;
+    overflow-x: auto;
+    width: 350px;
+  }
+}

@@ -5,7 +5,7 @@ import Container from "../global/Container";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../userContext";
 import useMedia from "../../Hooks/useMedia";
-import MenuMobile from "../menu/MenuMobile";
+import verificado from "../../assets/Icones/verificado.svg";
 /**
  * O componente Header representa a barra de navegação no topo da página.
  *
@@ -30,8 +30,6 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      {mobile && <MenuMobile />}
-
       {!mobile ? (
         <Container>
           <nav className={styles.nav}>
@@ -42,7 +40,8 @@ const Header = () => {
             <div className={styles.userProfile}>
               {data ? (
                 <Link to="/conta" className={styles.login}>
-                  {data && "Olá" + " " + data.username}
+                  {data && "Olá" + " " + data.username}{" "}
+                  <img src={verificado} alt="" />
                 </Link>
               ) : (
                 <Link

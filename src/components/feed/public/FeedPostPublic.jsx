@@ -1,22 +1,21 @@
 import React from "react";
-import FeedPostsItens from "./FeedPostsItens";
-import useFetch from "../../Hooks/useFetch";
-import { SERVICO_GET, SERVICO_GET_ALL } from "../../Api";
-import Error from "../forms/Error";
-import Loading from "../utils/Loading";
-import styles from "./FeedPost.module.css";
-import { UserContext } from "../../userContext";
+import FeedPostsItens from "../FeedPostsItens";
+import useFetch from "../../../Hooks/useFetch";
+import { SERVICO_GET, SERVICO_GET_ALL } from "../../../Api";
+import Error from "../../forms/Error";
+import Loading from "../../utils/Loading";
+import styles from "./FeedPostPublic.module.css";
+import { UserContext } from "../../../userContext";
 
-const FeedPost = ({ setModalPost }) => {
+const FeedPostPublic = ({ setModalPost }) => {
   const { data, loading, error, request } = useFetch();
 
   const userContextData = React.useContext(UserContext);
-  const id = userContextData.data ? userContextData.data.id : null;
 
   React.useEffect(() => {
     const token = window.localStorage.getItem("token");
     async function fetchPost() {
-      const { url, options } = SERVICO_GET(token, id);
+      const { url, options } = SERVICO_GET_ALL({ page: 1, total: 6, user: 0 });
       const { response, json } = await request(url, options);
       console.log(json);
     }
@@ -30,6 +29,7 @@ const FeedPost = ({ setModalPost }) => {
   if (data) {
     return (
       <div>
+        <h1 className="subTitulo">Destaques</h1>
         <ul className={styles.feed}>
           {data.map((post) => (
             <FeedPostsItens
@@ -44,4 +44,4 @@ const FeedPost = ({ setModalPost }) => {
   } else return null;
 };
 
-export default FeedPost;
+export default FeedPostPublic;

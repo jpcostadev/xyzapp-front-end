@@ -109,6 +109,19 @@ export function SERVICO_GET(token, id) {
     },
   };
 }
+
+export function SERVICO_DELETE(id) {
+  return {
+    url: `${API_URL}/api/servico/${id}`,
+    options: {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ` + window.localStorage.getItem("token"),
+      },
+    },
+  };
+}
+
 export function POST_GET(id) {
   return {
     url: `${API_URL}/api/servico?${id}`,
@@ -120,11 +133,12 @@ export function POST_GET(id) {
 }
 
 // Busca as postagens de um usuário específico
-export function SERVICO_GET_ALL() {
+export function SERVICO_GET_ALL(page, total, user) {
   return {
-    url: `${API_URL}/api/user/posts`,
+    url: `${API_URL}/api/servico?_page=${page}&_total=${total}&_user=${user}`,
     options: {
       method: "GET",
+      cache: "no-store",
     },
   };
 }

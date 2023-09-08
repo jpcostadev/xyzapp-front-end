@@ -1,10 +1,10 @@
 import React from "react";
-import Container from "../global/Container";
-import Feed from "../feed/Feed";
+import Container from "../../components/global/Container";
+import FeedPublic from "../feed/public/FeedPublic";
 const Home = () => {
   return (
     <Container>
-      <Feed />
+      <FeedPublic />
     </Container>
   );
 };

@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./FeedModal.module.css";
-import useFetch from "../../Hooks/useFetch";
-import { BUSCAR_CEP, POST_GET, SERVICO_GET } from "../../Api";
-import Error from "../forms/Error";
-import Loading from "../utils/Loading";
-import PostContent from "./post/PostContent";
+import styles from "./FeedModalPublic.module.css";
+import useFetch from "../../../Hooks/useFetch";
+import { BUSCAR_CEP, POST_GET, SERVICO_GET } from "../../../Api";
+import Error from "../../forms/Error";
+import Loading from "../../utils/Loading";
+import PostContent from "../post/PostContent";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../userContext";
-import PostDelete from "./post/PostDelete";
+import { UserContext } from "../../../userContext";
+import PostDelete from "../post/PostDelete";
 
 const formatText = (text) => {
   // Substitui os hífens por espaços e, em seguida, formata a string
@@ -17,12 +17,10 @@ const formatText = (text) => {
   );
 };
 
-const FeedModal = ({ post, setModalPost }) => {
+const FeedModalPublic = ({ post, setModalPost }) => {
   const { data, error, loading, request } = useFetch();
 
   const user = React.useContext(UserContext);
-  console.log(user);
-  console.log(data);
 
   React.useEffect(() => {
     const { url, options } = POST_GET(post.id);
@@ -50,7 +48,7 @@ const FeedModal = ({ post, setModalPost }) => {
             {post.nome} {post.sobrenome}
           </p>
           <p>
-            {post && post.cidade} - {post && post.estado}{" "}
+            {post.cidade} - {post.estado}
           </p>
           Turno Disponível: <span>{formatText(post.turno_atendimento)}</span>
         </div>
@@ -76,6 +74,7 @@ const FeedModal = ({ post, setModalPost }) => {
             <a href={`mailto:${post.email}`}>Email</a>
           </button>
         </div>
+
         {/* Botão de deletar */}
         <div className={styles.nomeUser}>
           {user.data && user.data.username === post.postador_name ? (
@@ -93,4 +92,4 @@ const FeedModal = ({ post, setModalPost }) => {
   );
 };
 
-export default FeedModal;
+export default FeedModalPublic;

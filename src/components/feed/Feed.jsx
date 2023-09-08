@@ -14,6 +14,7 @@ const Feed = () => {
           {modalPost && (
             <FeedModal post={modalPost} setModalPost={setModalPost} />
           )}
+
           <FeedPost setModalPost={setModalPost} />
         </section>
       </ContainerMid>

@@ -25,10 +25,8 @@ const AnuncioPost = () => {
   // Estado para armazenar a categoria selecionada
   const [categoriaSelecionada, setCategoriaSelecionada] = React.useState("");
 
-  // Estado para controlar o limite máximo de postagens
-  // const [postLimitExceeded, setPostLimitExceeded] = useState(false);
-
-  // Define o número máximo de fotos
+  const user = React.useContext(UserContext);
+  console.log(user.data);
 
   // Hooks personalizados para o gerenciamento de campos de formulário
   const titulo = useForm();
@@ -296,6 +294,7 @@ const AnuncioPost = () => {
       getUser,
       useFetch,
     );
+    console.log(userData);
     const turno_atendimento = turnosSelecionados.join(", "); // Junta os turnos selecionados em uma única string separada por vírgulas
 
     // Dentro da função handleSubmit
@@ -304,9 +303,14 @@ const AnuncioPost = () => {
       categoria: selectedOption,
       sub_categoria: selectedSubcategoria,
       turno_atendimento: turno_atendimento,
-      // email: userData.email || "",
-      // whatsapp: userData.whatsapp || "",
-      // telefone: userData.telefone || "",
+      email: user.data.email || "",
+      nome: user.data.nome || "",
+      sobrenome: user.data.sobrenome || "",
+      whatsapp: user.data.whatsapp || "",
+      telefone: user.data.telefone || "",
+      cep: user.data.cep || "",
+      cidade: user.data.cidade || "",
+      estado: user.data.estado || "",
     };
 
     // Desabilita o botão de envio
@@ -361,10 +365,6 @@ const AnuncioPost = () => {
     <ContainerMid>
       <div className={styles.mid}>
         <section className={`${styles.anuncioPost} animeLeft`}>
-          <div className={styles.anuncio}>
-            <h1>Anuncio</h1>
-          </div>
-
           <form onSubmit={handleSubmit}>
             {/* Componente de input para o título */}
             <h5 className={`${styles.h5} subTitulo`}>Título</h5>
@@ -436,10 +436,6 @@ const AnuncioPost = () => {
             {/* Exibe mensagem de erro, se houver */}
             {error && <Error error={error} />}
           </form>
-
-          <div className={styles.anuncio}>
-            <h1>Anuncio</h1>
-          </div>
         </section>
       </div>
     </ContainerMid>
