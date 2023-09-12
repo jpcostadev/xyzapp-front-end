@@ -7,6 +7,10 @@
   top: 0px;
 }
 
+.logo {
+  max-width: 55px;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
@@ -33,6 +37,24 @@
   height: 17px;
   background-image: url(../../assets/Icones/usuario.svg);
   margin-right: 1rem;
+}
+
+/* MENU MOBILE */
+
+.headerM {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: var(--amarelo);
+}
+
+.navM {
+  padding: 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6rem;
 }
 
 /* ----------------------------------------- */

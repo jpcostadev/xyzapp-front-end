@@ -18,7 +18,6 @@ const FeedPost = ({ setModalPost }) => {
     async function fetchPost() {
       const { url, options } = SERVICO_GET(token, id);
       const { response, json } = await request(url, options);
-      console.log(json);
     }
 
     fetchPost();

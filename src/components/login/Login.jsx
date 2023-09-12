@@ -8,6 +8,7 @@ import LoginPasswordReset from "./LoginPasswordReset";
 import { UserContext } from "../../userContext";
 import styles from "./Login.module.css";
 import Termos from "./Termos";
+import logo from "../../assets/img/logo-cinza.svg";
 
 /**
  * O componente Login gerencia as rotas relacionadas ao login e exibe o formulário de login.
@@ -27,8 +28,7 @@ const Login = () => {
       <Container>
         <div className={styles.forms}>
           <span className={styles.logo}>
-            <h1>LOGO</h1>
-            <img src="" alt="" />
+            <img src={logo} alt="" />
           </span>
 
           {/* Componente Routes para gerenciar as rotas internas */}

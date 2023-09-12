@@ -11,9 +11,4 @@
 }
 
 @media (max-width: 800px) {
-  .feed {
-    flex-direction: row;
-    overflow-x: auto;
-    width: 350px;
-  }
 }

@@ -37,27 +37,5 @@
   font-size: 1.3rem;
 }
 
-::-webkit-scrollbar {
-  background-color: var(--cor-a6);
-  border-radius: 100px;
-  width: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background-color: var(--amarelo);
-  border-radius: 100px;
-  width: 6px;
-}
-
 @media (max-width: 800px) {
-  ::-webkit-scrollbar-thumb {
-    background: none;
-    border: none;
-    width: 0;
-  }
-
-  ::-webkit-scrollbar {
-    background: none;
-    border: none;
-    width: 0;
-  }
 }

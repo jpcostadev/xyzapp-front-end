@@ -12,7 +12,6 @@ export const UserStorage = ({ children }) => {
   const [login, setLogin] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-
   // Hook de navegação para redirecionar o usuário para diferentes rotas
   const navigate = useNavigate();
 

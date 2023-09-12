@@ -21,8 +21,7 @@ const FeedModal = ({ post, setModalPost }) => {
   const { data, error, loading, request } = useFetch();
 
   const user = React.useContext(UserContext);
-  console.log(user);
-  console.log(data);
+  console.log(user.data);
 
   React.useEffect(() => {
     const { url, options } = POST_GET(post.id);

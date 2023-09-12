@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../userContext";
 import useMedia from "../../Hooks/useMedia";
 import verificado from "../../assets/Icones/verificado.svg";
+import logo from "../../assets/img/logo2.svg";
 /**
  * O componente Header representa a barra de navegação no topo da página.
  *
@@ -34,7 +35,7 @@ const Header = () => {
         <Container>
           <nav className={styles.nav}>
             <Link to={"/"} aria-label="xyz - home" className={styles.logo}>
-              LOGO
+              <img className={styles.logo} src={logo} alt="" />
             </Link>
 
             <div className={styles.userProfile}>
@@ -56,7 +57,17 @@ const Header = () => {
           </nav>
         </Container>
       ) : (
-        ""
+        <header className={styles.headerM}>
+          <nav className={styles.navM}>
+            <p>Início</p>
+            <p>Anuncios</p>
+            <p>+</p>
+            <p>Mensagens</p>
+            <span className={styles.hamburger}>
+              <button className={styles.btnMenu}>Menu</button>
+            </span>
+          </nav>
+        </header>
       )}
     </header>
   );
